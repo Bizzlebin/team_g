@@ -8,7 +8,7 @@ By Jeremiah Thomas, et al
 
 ***
 
-Created on 2020-11-16
+Created 2020-11-16
 
 +++
 
@@ -22,4 +22,4 @@ Jeremiah Thomas     -              -              -              -              
                     20:00–24:00    20:00–24:00    20:00–24:00    20:00–24:00    20:00–24:00    -              -
 """
 
-PS: Remember to add/modify an "Updated on ..." field if you update this—or any—document on a different day than its creation!
+PS: Remember to add/modify an "Updated ..." field if you update this—or any—document on a different day than its creation!
