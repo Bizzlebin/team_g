@@ -16,7 +16,7 @@ Overview
 I've worked on and managed a number of projects before so hopefully the workload is evenly distributed among these positions; we'll figure out presentation duties later. Please choose the position you have the most experience with as these duties are quite specialized—I told you this would not be first-year-level work!—and we'll need to start ASAP. Anyways, here are the roles I have planned, with their tentative descriptions and duties below. Please add your name to a role to claim it:
 
 **Project Manager**: Jeremiah Thomas
-**Regex Developer**: 
+**Regex Developer**: Michael Tanner
 **UI Designer**: 
 **Algorithm Specialist**: Eric Bulson
 
