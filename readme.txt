@@ -1,6 +1,6 @@
 Team G
 
-Metadata Parser | WTCC CSC 130 Group Project
+Readme Parser | WTCC CSC 130 Group Project
 
 https://github.com/bizzlebin/team_g/
 
@@ -53,9 +53,9 @@ Due By *Tuesday* (2020-11-17)
 ---
 Due By *Thursday* (2020-11-19)
 
-1. RD: create plaintext of pseudocode for current algorithm
-2. UID: prototype file dialog
-3. AS: complete JSON integration of current [outdated] regex
+1. RD: create plaintext of pseudocode for current algorithm (pseudocode.txt)
+2. UID: prototype file dialog (dialog.py)
+3. AS: complete JSON integration of current [outdated] regex (fields.json)
 
 +++
 Ground Rules
@@ -75,3 +75,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-16
+**meta_updated**: 2020-11-16
