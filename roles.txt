@@ -8,7 +8,7 @@ By Jeremiah Thomas, et al
 
 ***
 
-Created on 2020-11-16
+Created 2020-11-16
 
 +++
 Overview
