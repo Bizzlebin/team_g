@@ -1,0 +1,53 @@
+Roles
+
+https://github.com/bizzlebin/team_g/blob/master/roles.txt
+
+***
+
+By Jeremiah Thomas, et al
+
+***
+
+Created on 2020-11-16
+
++++
+Overview
+
+I've worked on and managed a number of projects before so hopefully the workload is evenly distributed among these positions; we'll figure out presentation duties later. Please choose the position you have the most experience with as these duties are quite specialized—I told you this would not be first-year-level work!—and we'll need to start ASAP. Anyways, here are the roles I have planned, with their tentative descriptions and duties below. Please add your name to a role to claim it:
+
+**Project Manager**: Jeremiah Thomas
+**Regex Developer**: 
+**UI Designer**: 
+**Algorithm Specialist**: 
+
++++
+Duties
+
+===
+Project Manager
+
+**Privileges**: Submit deliverables
+**Primary deliverables**: Management infrastructure (internal), docstrings, assistance as needed
+
+The project manager is responsible both for the team and the deliverables. They must bridge the gap between the client, the company, and the rest of the team and will generally spend most of their time and energy focused on keeping the project on track. They cannot get bogged down in the details nor micromanage but should step in to resolve or prevent conflicts. The project manager also has general power over commits, can [cautiously] override anything that may threaten the project, and will make the final submission of deliverables. They can also have to regularly report back to corporate—in this case, the teacher!
+
+===
+Regex Developer
+
+**Primary deliverables**: JSON file of working regex, import of JSON, new JSON schema
+
+The regex developer will need some basic familiarity with regular expressions and JSON, though the beta regexes are complete and an example of a JSON file (with different fields—it is for a *much* more complete parser) is provided. The dev will need to design an appropriate JSON schema to capture the current behavior (with all NKMF header fields—even those not used in setup.py—*without* using """re.S""" or raw string regexes (ie, """ r'[regex]' """—they don't work well with Python's JSON parser), write a statement to import the JSON, and then update the regex to match the current version of the NKMF (reflected in the official spec as well as the readmes, input_int.py, and any of the newer files in the main directory). The third duty will be the most challenging so please get everything else working first and commit it! When the algorithm specialist is ready later on, only a few more changes may need to be made to the JSON schema/API as the fourth and final duty.
+
+===
+UI Designer
+
+**Primary deliverables**: Tkinter dialogs, logic for finding/saving readmes, error handling, testing
+
+The UI designer will need to further refine the logic for finding readmes: opening up a Tkinter dialog, the selected file should default to readme|README[.txt] in the last working directory [if present] but otherwise allow the user to select any file; the output directory must be set to the same folder as where the input file was. The designer will need to study the current error handling and look for any missed cases—please don't needlessly change the messages!—and develop catches for those. They will need to ensure the output file is correct—for both PIP and the NKMF (read/use new_nkmf_file.py for help with many of these tasks). They should also help out with general testing, looking for edge cases in the parsing when the JSON is ready to go: they will help the other programmers isolate problems until the end of the project.
+
+===
+Algorithm Specialist
+
+**Primary deliverables**: rewrite of parsing algorithm to use [backtracking] queue
+
+The algorithm specialist will have to be *very* studious: the current parsing algorithm is relatively simple but it really needs to be grasped before any changes are made. Once the process is understood, the algorithm needs to be changed so that each part of the header metadata is stored in a queue, each part's end being denoted by the terminating dinkus or chapter marker but not captured anymore with regex. Then, instead of the current regex-based backtrack behavior, the queue will pop the parts to be parsed individually. This will require close cooperation with the regex dev as some changes will need to be made—in general, the changes should *simplify* the regex and algorithm since the filter field (ie, """field_names[field][2]""") will be unnecessary. If time permits, the subfields can be promoted to full JSON [child] objects and handled the same as the top-level fields, further simplifying the algorithm but requiring even more changes, perhaps recursion (eg, """field_names[field][1]""" could be changed to a bool that triggers recursion for child objects, which run on portions of the text captured in """field_names[field][0]""").
