@@ -3,8 +3,8 @@ File: linkedqueue.py
 Project 8.3
 """
 
-from resources.data_structures.Queue.node import Node
-from resources.data_structures.Queue.abstractcollection import AbstractCollection
+from resources.Queue.node import Node
+from resources.Queue.abstractcollection import AbstractCollection
 
 class LinkedQueue(AbstractCollection):
     """A link-based queue implementation."""
