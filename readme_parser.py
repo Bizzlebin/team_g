@@ -30,6 +30,7 @@
 from os import sys, path
 import re
 from datetime import date
+import resources.data_structures.Queue.linkedqueue as linkedqueue
 # 
 # +++
 # Assignments
@@ -84,7 +85,7 @@ def read_readme():
 # Read Fields
 # 
 def read_fields(text, FIELD_NAMES):
-	fields = {}
+	fields = linkedqueue.LinkedQueue()
 	start = 0
 
 	for field in FIELD_NAMES:
@@ -97,25 +98,25 @@ def read_fields(text, FIELD_NAMES):
 				filters = '' # This not only gets rid of a """TypeError""" iterating on """None""" but doesn't have a negative effect when trying to filter—perhaps zero-length strings don't compare?
 			for filter in filters:
 				if filter in match.group(1)[:len(filter)]:
-					fields = {**fields, field: ''} # Send blank fields; comment out to send only filled fields
+					fields.add([field, '']) # Send blank fields; comment out to send only filled
 					break
 			else:
 				start = match.end()
 				if match.group(1) is None:
-					fields = {**fields, field: ''} # Prevent """None""" from being sent
+					fields.add([field, '']) # Prevent """None""" from being sent
 				else:
-					fields = {**fields, field: match.group(1)}
+					fields.add([field, match.group(1)])
 				if subfields:
 					for i in range(len(subfields)):
 						if match.group(i + 2) is None:
-							fields = {**fields, subfields[i]: ''} # Prevent """None""" from being sent
+							fields.add([subfields[i], '']) # Prevent """None""" from being sent
 						else:
-							fields = {**fields, subfields[i]: match.group(i + 2)} # The first group is already the main field so start at group 2
+							fields.add([subfields[i], match.group(i + 2)]) # The first group is already the main field so start at group 2
 		except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-			fields = {**fields, field: ''} # Comment out until """pass""" to send only filled (ie, non-blank) fields
+			fields.add([field, '']) # Comment out until """pass""" to send only filled (ie, non-blank) fields
 			if subfields:
 				for i in range(len(subfields)):
-					fields = {**fields, subfields[i]: ''}
+					fields.add([subfields[i], ''])
 			pass
 	return fields
 # 
@@ -137,12 +138,15 @@ Output
 		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
 	fields = read_fields(text, FIELD_NAMES)
-	fields['name'] = fields['name'].casefold().replace(' ', '_') # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—but this is a best-effort solution to deal with the unsemantic mess which is Python packaging and versioning; case is otherwise normalized, as per the UEWSG
-	for field in fields:
-		print(f'**{field}**: {fields[field]}')
+	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
+	name = name.casefold().replace(' ', '_') # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—but this is a best-effort solution to deal with the unsemantic mess which is Python packaging and versioning; case is otherwise normalized, as per the UEWSG
+	for field in range(0, (fields.__len__()-1)):
+		field = fields.pop()
+		print(f'**{field[0]}**: {field[1]}')
+		fields.add(field)
 	try:
 		with open(path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
-			setup.write(f'''# Setup | {fields['name']}
+			setup.write(f'''# Setup | {name}
 # 
 # For "setuptools" only
 # 
@@ -155,7 +159,7 @@ Output
 # +++
 # Description
 # 
-# An auto-generated setup file for {fields['name']} by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
+# An auto-generated setup file for {name} by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
 # 
 # +++
 # Imports
@@ -167,9 +171,10 @@ from setuptools import setup
 # 
 setup(''')
 			for field in fields:
-				setup.write(f'\n\t{field} = """{fields[field]}""",')
+				field = fields.pop()
+				setup.write(f'\n\t{field[0]} = """{field[1]}""",')
 			setup.write(f'''\n\tlong_description_content_type = """text/plain""",
-\tpy_modules = ["""{fields['name']}""",],
+\tpy_modules = ["""{name}""",],
 )''')
 		print('\n***\n\nSuccessfully created setup.py!')
 		input('\nPress Enter to exit...')
