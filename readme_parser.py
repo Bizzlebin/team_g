@@ -30,7 +30,7 @@
 from os import sys, path
 import re
 from datetime import date
-import resources.Queue.linkedqueue as linkedqueue
+import Queue.linkedqueue as linkedqueue
 # 
 # +++
 # Assignments
