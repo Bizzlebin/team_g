@@ -40,4 +40,11 @@ Michael Tanner      -              -              -              -              
                     17:00–21:00    17:00–21:00    17:00–21:00    17:00-18:00    17:00–21:00    -              -
 """
 
+"""
+Name                Sunday         Monday         Tuesday        Wednesday      Thursday       Friday         Saturday
+
+Alexander Jimenez   16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00
+                    16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00
+                    16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00    12:00-18:00    18:00-24:00    16:00-24:00
+
 PS: Remember to add/modify an "Updated ..." field if you update this—or any—document on a different day than its creation!

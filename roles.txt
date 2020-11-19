@@ -17,7 +17,7 @@ I've worked on and managed a number of projects before so hopefully the workload
 
 **Project Manager**: Jeremiah Thomas
 **Regex Developer**: Michael Tanner
-**UI Designer**: 
+**UI Designer**: Alexander Jimenez
 **Algorithm Specialist**: Eric Bulson
 
 +++
