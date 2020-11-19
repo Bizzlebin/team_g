@@ -48,14 +48,25 @@ Due By *Tuesday* (2020-11-17)
 3.4. Create branch (optional; if you're not making breaking changes then you may commit to master).
 4. Add your availability so we can schedule a regular Slack meeting (use a Git commit to the availability.txt file—get used to commits and please follow the commit message style you read about in step 1 !).
 5. Pick your role in roles.txt; if you want to switch with someone before the end of Tuesday use Slack or e-mail them to discuss.
-6. PM: create Readme Parser 0.3.0 (module we'll be working with)
+6. PM: create Readme Parser 0.3.0 (module we'll be working with).
 
 ---
 Due By *Thursday* (2020-11-19)
 
-1. RD: create plaintext of pseudocode for current algorithm (pseudocode.txt)
-2. UID: prototype file dialog (dialog.py)
-3. AS: complete JSON integration of current [outdated] regex (fields.json)
+1. RD: complete JSON integration of current [outdated] regex (fields.json).
+2. UID: prototype file dialog (dialog.py).
+3. AS: create plaintext of pseudocode for current algorithm (pseudocode.txt).
+
+===
+Week 2 (2020-11-22)
+
+---
+Due By *Monday* (2020-11-23)
+
+1. RD: update JSON to new NKMF spec (eg, it should parse the project readme fully)
+2. UID: convert Readme Parser output to match current NKMF spec
+3. AS: develop improved algorithm that supports multiple text chunks in queue, labeling each by NKMF subdivision name ("Title", "Authorship", etc), which can then be parsed individually for fields ("title", "version", "container", etc); dinkuses and chapter markers should signal the end of each chunk but only the content should be included in the stored text
+4. PM: create docstrings for functions
 
 +++
 Ground Rules
@@ -75,4 +86,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-16
-**meta_updated**: 2020-11-16
+**meta_updated**: 2020-11-19
