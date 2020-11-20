@@ -35,7 +35,7 @@ import Queue.linkedqueue as linkedqueue
 # +++
 # Assignments
 # 
-with open('resources/fields.json', 'r') as file:
+with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
     fields = json.load(file)
 # ===
 # Constants
