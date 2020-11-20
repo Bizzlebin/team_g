@@ -1,6 +1,6 @@
 Availability
 
-https://github.com/bizzlebin/team_g/blob/master/availability.txt
+https://github.com/bizzlebin/team_g/blob/master/team/availability.txt
 
 ***
 

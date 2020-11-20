@@ -1,6 +1,6 @@
 Roles
 
-https://github.com/bizzlebin/team_g/blob/master/roles.txt
+https://github.com/bizzlebin/team_g/blob/master/team/roles.txt
 
 ***
 
