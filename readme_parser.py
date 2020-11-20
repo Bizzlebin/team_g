@@ -12,15 +12,35 @@
 # 
 # Created 2020-11-17
 # 
+# Updated 2020-11-19
+# 
 # +++
 # Description
 # 
-# A basic parser to extract setup.py metadata fields from a NKMF-compliant (and UEWSG-compliant!) UTF-8 readme file. Fields must not be [preformatted] blockquotes—they are difficult to parse (at present). Assumes 1 script with same snake-case name as """name""". If using the legacy distutils.core, fields must be "short strings", under 200 characters, to be compatible with the (setuptools does not appear to have this restriction). The """name""", """version""", and """url""" fields are required for distutils.
-#
+# A basic parser to extract setup.py metadata fields from a NKMF-compliant (and UEWSG-compliant!) UTF-8 readme file.
+# 
+# ===
+# Constraints
+# 
+# Fields must not be [preformatted] blockquotes—they are difficult to parse (at present). Assumes 1 script with same snake-case name as """name""". If using the legacy distutils.core, fields must be "short strings", under 200 characters, to be compatible with the (setuptools does not appear to have this restriction). The """name""", """version""", and """url""" fields are required for distutils.
+# 
 # Some fields will need to be manually added. There is no consistent way to add an e-mail address since it is not part of the NKMF at present. Similarly, other fields are not part of the NKMF and/or are just not very useful for the majority of projects; make sure to check project requirements. Finally, note the below fields, which can be generated programmatically (eg, using the vermin library) but are outside the scope of this parser:
 # 
 # • """install_requires = ['my_package >=8.34']"""
 # • """python_requires = '>=3.9'"""
+# 
+# ===
+# JSON Fields Format
+# 
+# The JSON file must contain all applicable fields in a dict with their setuptools name as the key; setuptools is the successor to distutils, found at https://setuptools.readthedocs.io/en/latest/setuptools.html#metadata . """filters""" are lists of strings or null and """subfields""" are lists of 0 or more strings (they *must* match the capturing groups of the regex).
+# 
+# {
+# 	"": {
+# 		"regex": "",
+# 		"filters": "",
+# 		"subfields": ""
+# 	}
+# }
 # 
 
 # 
@@ -42,10 +62,6 @@ with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
 # 
 # ---
 # Field Names
-# 
-# Syntax: 'name': {regex_for_field, (filters)|None, [subfields_in_regex_groups]}
-# 
-# The number of capturing groups, if greater than 1, *must* match the number of subfields; subfields *must* be lists, not tuples, or single-value contents will be indexed as a plain string! Fields names are roughly adjusted to match the "setuptools" (successor to "distutils") metadata fields, found at https://setuptools.readthedocs.io/en/latest/setuptools.html# metadata .
 # 
 # FIELD_NAMES = \
 #	{
