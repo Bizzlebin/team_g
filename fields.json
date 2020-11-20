@@ -1,9 +1,37 @@
 {
-	"name": "\\A(.+?) ?((?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(.+)?$",
-	"description": "^$\\n(^.*?$)",
-	"release_date": "\\A(.+?) ?((?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(.+)?$",
-	"download_url": "^$\\n(^(?:http|ftp).*?$)",
-	"license": "\\*\\*\\*$\\n^$\\n^((?:Ø |(?:(?:Copyright )?© ))?(?:\\d{4}))? ?(.+?)$",
-	"license_file": "^$\\n(^.*?$(?:\\n^$\\n^.+$)*?)(?=\\n^$\\n^\\+\\+\\+$|\\Z)",
-	"long_description": "^\\+\\+\\+$\\n^Description$\\n^$\\n(^.+$(?:\\n^$\\n^.+$)*?)(?=\\n^$\\n^\\+\\+\\+$|\\n^$\\n^===$|\\Z)"
+	"name": {
+		"regex": "\\A(.+?) ?((?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(.+)?$",
+		"filters": null,
+		"subfields": ["version", "url"]
+	},
+	"description": {
+		"regex": "^$\\n(^.*?$)",
+		"filters": ["Released on", "http", "ftp", "***"],
+		"subfields": []
+	},
+	"release_date": {
+		"regex": "\\A(.+?) ?((?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(.+)?$",
+		"filters": ["http", "ftp", "***"],
+		"subfields": []
+	},
+	"download_url": {
+		"regex": "^$\\n(^(?:http|ftp).*?$)",
+		"filters": ["***"],
+		"subfields": []
+	},
+	"license": {
+		"regex": "\\*\\*\\*$\\n^$\\n^((?:Ø |(?:(?:Copyright )?© ))?(?:\\d{4}))? ?(.+?)$",
+		"filters": null,
+		"subfields": ["author"]
+	},
+	"license_file": {
+		"regex": "^$\\n(^.*?$(?:\\n^$\\n^.+$)*?)(?=\\n^$\\n^\\+\\+\\+$|\\Z)",
+		"filters": null,
+		"subfields": []
+	},
+	"long_description": {
+		"regex": "^\\+\\+\\+$\\n^Description$\\n^$\\n(^.+$(?:\\n^$\\n^.+$)*?)(?=\\n^$\\n^\\+\\+\\+$|\\n^$\\n^===$|\\Z)",
+		"filters": null,
+		"subfields": []
+	}
 }
