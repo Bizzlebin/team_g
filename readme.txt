@@ -70,8 +70,6 @@ Todo
 • Update to latest version of NKMF
 • Fix "Description" becoming license text if license text is missing
 • Add flags for running in interactive mode, test mode (ie, show only parse without making setup.py)—default should be to run silently
-• Parse filters with regex, allowing for more dynamic filtering
-• Escaped title (as per UEWSG) compatibility?
 
 +++
 Metametadata
@@ -80,4 +78,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-16
-**meta_updated**: 2020-11-19
+**meta_updated**: 2020-11-20
