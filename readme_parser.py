@@ -36,7 +36,7 @@ import Queue.linkedqueue as linkedqueue
 # Assignments
 # 
 with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
-    fields = json.load(file)
+    fields_json = json.load(file)
 # ===
 # Constants
 # 
@@ -47,17 +47,30 @@ with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
 # 
 # The number of capturing groups, if greater than 1, *must* match the number of subfields; subfields *must* be lists, not tuples, or single-value contents will be indexed as a plain string! Fields names are roughly adjusted to match the "setuptools" (successor to "distutils") metadata fields, found at https://setuptools.readthedocs.io/en/latest/setuptools.html# metadata .
 # 
-FIELD_NAMES = \
-	{
-	'name': (re.compile(fields['name'], re.M), None, ['version', 'url']), # First line is "always" the title (unless escaped), optionally followed by the version and then the container/collection, which in this case will be "assumed" to be a URL; thanks to Nick for help on this: https://stackoverflow.com/questions/61262656/how-can-i-match-work-file-titles-with-optional-elements-using-python-3-regex 
-	'description': (re.compile(fields['description'], re.M), ('Released on', 'http', 'ftp' '***'), []), # Subtitle passed as [short] description; the filters are the beginning of the next [block] fields, preventing an inappropriate match if some fields are left out and these later fields occur earlier than expected
-	'release_date': (re.compile(fields['release_date'], re.M), ('http', 'ftp', '***'), []), # Not currently supported by "setuptools"
-	'download_url': (re.compile(fields['download_url'], re.M), ('***'), []),
-	'license': (re.compile(fields['license'], re.M), None, ['author']), # No need to filter here, given the matching by UEWSG block marker; the author(s) are assumed to be the copyright holders
-	# 'long_description': (re.compile(r'^\+\+\+$.^Description$.^$.(^.+?($.^$.^.+?$)*?$)(?=.^$.^$.^\+\+\+$|.^$.^$.^===$|.^$.^$.^---$|\Z)', re.M | re.S), None, None), # Not sure why this doesn't work; oh well! Using """re.S""" seems to be quite troublesome
-	'license_file': (re.compile(fields['license_file'], re.M), None, []), # Only a chapter marker (or EOF) can follow the license, according to the NKCF, so no more exhaustive checking is needed
-	'long_description': (re.compile(fields['long_description'], re.M), None, []), # "long_description_content_type" is also a valid metadata field that clarifies this one but doesn't seem common; the regex tests for UEWSG block markers to catch the end of this section, if multiple paragraphs are used
-}
+# FIELD_NAMES = \
+#	{
+#	'name': (re.compile(fields['name'], re.M), None, ['version', 'url']), # First line is "always" the title (unless escaped), optionally followed by the version and then the container/collection, which in this case will be "assumed" to be a URL; thanks to Nick for help on this: https://stackoverflow.com/questions/61262656/how-can-i-match-work-file-titles-with-optional-elements-using-python-3-regex 
+#	'description': (re.compile(fields['description'], re.M), ('Released on', 'http', 'ftp' '***'), []), # Subtitle passed as [short] description; the filters are the beginning of the next [block] fields, preventing an inappropriate match if some fields are left out and these later fields occur earlier than expected
+#	'release_date': (re.compile(fields['release_date'], re.M), ('http', 'ftp', '***'), []), # Not currently supported by "setuptools"
+#	'download_url': (re.compile(fields['download_url'], re.M), ('***'), []),
+#	'license': (re.compile(fields['license'], re.M), None, ['author']), # No need to filter here, given the matching by UEWSG block marker; the author(s) are assumed to be the copyright holders
+#	# 'long_description': (re.compile(r'^\+\+\+$.^Description$.^$.(^.+?($.^$.^.+?$)*?$)(?=.^$.^$.^\+\+\+$|.^$.^$.^===$|.^$.^$.^---$|\Z)', re.M | re.S), None, None), # Not sure why this doesn't work; oh well! Using """re.S""" seems to be quite troublesome
+#	'license_file': (re.compile(fields['license_file'], re.M), None, []), # Only a chapter marker (or EOF) can follow the license, according to the NKCF, so no more exhaustive checking is needed
+#	'long_description': (re.compile(fields['long_description'], re.M), None, []), # "long_description_content_type" is also a valid metadata field that clarifies this one but doesn't seem common; the regex tests for UEWSG block markers to catch the end of this section, if multiple paragraphs are used
+#}
+FIELD_NAMES = {}
+
+for field_section in fields_json:
+	field_regex = fields_json[field_section]["regex"]
+
+	if fields_json[field_section]["filters"]:
+		field_filters = fields_json[field_section]["filters"]
+	else:
+		field_filters = None
+
+	field_subfields = fields_json[field_section]["subfields"]
+
+	FIELD_NAMES[field_section] = (re.compile(field_regex, re.M), field_filters, field_subfields)
 # 
 # +++
 # Functions
