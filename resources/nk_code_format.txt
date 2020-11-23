@@ -10,7 +10,7 @@ By JBT
 
 Created on 2019-08-25
 
-Updated on 2020-11-12
+Updated on 2020-11-23
 
 ***
 
@@ -66,7 +66,7 @@ Code
 • """CONSTANTS""" should be listed after initializations, with descriptive uppercase names.
 • Classes should start with uppercase letters but otherwise follow snake_case.
 • Exceptions (and their classes/constructors) should be written in capital CamelCase, since they're exceptions!
-• Function names should be verbs and should start with input (eg, """input_int()""") for user-facing input, one of the 4 CURD verbs (namely create, update, read, delete—though read should not normally be used: reading is generally handled by built-ins and the other verbs take precedence) for all other types of processing (ie, the X in IXO), or output (eg, """output_answer()""") for user-facing output [if they are not part of the main procedure].
+• Function names should be verbs and should start with input (eg, """input_int()""") for user-facing input, one of the 4 CURD verbs (namely create, update, read, delete—though read is probably the least common of these: reading is generally handled by built-ins and the other verbs often take precedence as the primary action) for all other types of processing (ie, the X in IXO), or output (eg, """output_answer()""") for user-facing output [if they are not part of the main procedure].
 • The main output procedure (or """main()""" function in some languages; do *not* use such a function unless the language requires it) may contain all I/O operations for small programs but larger programs should consider breaking the code into modular functions, limiting user-facing I/O only to the main procedure and any functions that are prefixed with the verbs input or output.
 •• Any initialization code, which actually invokes """main()""", should be placed last; it should not receive a separate heading.
 
