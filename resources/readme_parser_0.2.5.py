@@ -60,7 +60,12 @@ def get_readme():
 		sys.exit() # Automatically creates and handles another exception specifically created for this purpose
 
 def get_fields(text, field_names):
-	fields = {}
+	section_names = ['Title', 'Authorship', 'Timestamps', 'Usage', 'Description']
+	sections = re.split(r'[*#=]{3}', text)
+	for section in sections:
+		i = 0
+		print(i, section)
+	fields = {} 
 	start = 0
 
 	for field in field_names:

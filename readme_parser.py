@@ -26,6 +26,7 @@ from os import sys, path
 import re, json
 from datetime import date
 import Queue.linkedqueue as linkedqueue
+import itertools
 # 
 # +++
 # Assignments
@@ -94,6 +95,11 @@ def read_fields(text, FIELD_NAMES):
 	fields = linkedqueue.LinkedQueue()
 	start = 0
 
+	section_names = ['Title', 'Authorship', 'Timestamps', 'Usage', 'Description']
+	sections = re.split(r'[*+=]{3}', text)
+	for (name, section) in zip(section_names, sections):
+		fields.add([name, section.strip()])
+	
 	for field in FIELD_NAMES:
 		subfields = FIELD_NAMES[field][2]
 		try:
