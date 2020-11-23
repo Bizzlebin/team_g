@@ -1,8 +1,8 @@
-# Setup | team_g
+# Setup | readme_parser
 # 
 # For "setuptools" only
 # 
-# 2020-11-19
+# 2020-11-22
 # 
 # ***
 # 
@@ -11,7 +11,7 @@
 # +++
 # Description
 # 
-# An auto-generated setup file for team_g by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
+# An auto-generated setup file for readme_parser by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
 # 
 # +++
 # Imports
@@ -22,18 +22,20 @@ from setuptools import setup
 # Output
 # 
 setup(
-	long_description = """""",
-	name = """Team G""",
-	version = """""",
+	long_description = """A basic parser to extract setup.py metadata fields from a NKMF-compliant (and UEWSG-compliant!) UTF-8 readme file.""",
+	name = """Readme Parser""",
+	version = """0.3.0""",
 	url = """""",
-	description = """Readme Parser | WTCC CSC 130 Group Project""",
+	description = """Make "setup.py" Easy!""",
 	release_date = """""",
 	download_url = """https://github.com/bizzlebin/team_g/""",
 	license = """""",
 	author = """By Jeremiah Thomas, et al""",
 	license_file = """***
 
-Created 2020-11-16
+Created 2020-04-16
+
+Updated 2020-11-20
 
 ***
 
@@ -43,5 +45,5 @@ All rights reserved. All copyright holders retain full copyright individually an
 
 """THE WORK IS PROVIDED "AS IS" AND THE AUTHORS AND OWNERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS WORK INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHORS OR OWNERS BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WORK."""""",
 	long_description_content_type = """text/plain""",
-	py_modules = ["""team_g""",],
+	py_modules = ["""readme_parser""",],
 )

@@ -1,0 +1,54 @@
+Pseudocode Original
+
+https://github.com/bizzlebin/team_g/blob/master/team/pseudocode.txt
+
+***
+
+By Eric Bulson
+
+***
+
+Created 2020-11-19
+
++++
+Description
+
+This is the pseudo code for the readme_parser program's original read_fields function.
+
++++
+
+This functions purpose is to use data (field names, RegEx patterns, filters, subfields) from FIELD_NAMES to search the readme file's text and pull the corresponding data values.
+
+function read_fields(Text, FIELD_NAMES):
+    Initialize a data structure to hold data values retrieved from readme text.
+    Set search start value to start at beginning of text.
+
+    Iterate through fields in FIELD_NAMES:
+        Assign subfields to a variable.
+        Try:
+            Search the text for values matching the field's RegEx pattern.
+            If field has filters:
+                Assign to filters variable.
+            Else:
+                Assign empty string to filters variable. 
+            Iterate through filters in filters:
+                If filter is in the first part of the search result:
+                    Add a blank field to data structure and exit current iteration.
+                Else:
+                    Update start index to ending index of search result.
+                    if the search result value is None:
+                        Add a blank field to the data structure
+                    Else:
+                        Add field with retrieved value to data structure
+                    If there are subfields:
+                        iterate through the subfields:
+                            if the subfield data value is None:
+                                Add a blank subfield to the data structure.
+                            Else:
+                                Add subfield with retrieved value to data structure.
+        Except when an AttributeError occours from fields that cannot be RegExed:
+            Add a blank field to data structure.
+            If there are subfields:
+                Iterate through subfields:
+                    add blank subfield to data structure.
+    return data structure.
