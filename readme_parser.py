@@ -26,13 +26,12 @@ from os import sys, path
 import re, json
 from datetime import date
 import Queue.linkedqueue as linkedqueue
-import itertools
 # 
 # +++
 # Assignments
 # 
 with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
-    fields_json = json.load(file)
+	fields_json = json.load(file)
 # ===
 # Constants
 # 
@@ -73,7 +72,11 @@ for field_section in fields_json:
 # ---
 # Read Readme
 # 
-def read_readme():
+def read_readme_uri():
+	'''
+	Read the location of the readme to be parsed using common names/exts in the CWD; with basic error handling.
+	'''
+
 	filenames = ('readme', 'README') # Necessary for case-sensitive file systems; weird caps are just SOL
 	extensions = ('.txt', '') # Accept non-UEWSG-recommended lack of file extension
 
@@ -91,7 +94,11 @@ def read_readme():
 # ---
 # Read Fields
 # 
-def read_fields(text, FIELD_NAMES):
+def create_fields(text, FIELD_NAMES):
+	'''
+	Create setuptools-compliant fields from the readme using regex; handles blank fields but does not tolerate non-compliance.
+	'''
+
 	fields = linkedqueue.LinkedQueue()
 	start = 0
 
@@ -144,12 +151,12 @@ Make "setup.py" Easy!
 Output
 ''')
 	try:
-		with open(read_readme(), encoding = 'UTF-8') as readme:
+		with open(read_readme_uri(), encoding = 'UTF-8') as readme:
 			text = readme.read()
 	except IOError:
 		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
-	fields = read_fields(text, FIELD_NAMES)
+	fields = create_fields(text, FIELD_NAMES)
 	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
 	name = name.casefold().replace(' ', '_') # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—but this is a best-effort solution to deal with the unsemantic mess which is Python packaging and versioning; case is otherwise normalized, as per the UEWSG
 	name = name.replace('\n', '\n# ')
@@ -165,7 +172,7 @@ Output
 # 
 # ***
 #
-# Created on {date.today().strftime('%Y-%m-%d')}
+# Created {date.today().strftime('%Y-%m-%d')}
 # 
 # ***
 # 
