@@ -53,12 +53,40 @@ Due By *Thursday* (2020-11-19)
 Week 2 (2020-11-22)
 
 ---
+Due By *Sunday* (2020-11-22)
+
+1. Meeting prep: 20:00 .
+
+---
 Due By *Monday* (2020-11-23)
 
-1. RD: update JSON to new NKMF spec (eg, it should parse the project readme fully)
-2. UID: convert Readme Parser output to match current NKMF spec
-3. AS: develop improved algorithm that supports multiple text chunks in queue, labeling each by NKMF subdivision name ("Title", "Authorship", etc), which can then be parsed individually for fields ("title", "version", "container", etc); dinkuses and chapter markers should signal the end of each chunk but only the content should be included in the stored text
-4. PM: create docstrings for functions
+1. RD: update JSON to new NKMF spec (eg, it should parse the project readme fully).
+2. UID: convert Readme Parser output to match current NKMF spec.
+3. AS: develop improved algorithm that supports multiple text chunks in queue, labeling each by NKMF subdivision name ("Title", "Authorship", etc), which can then be parsed individually for fields ("title", "version", "container", etc); dinkuses and chapter markers should signal the end of each chunk but only the content should be included in the stored text.
+4. PM: create docstrings for functions.
+
+---
+Due By *Tuesday* (2020-11-24)
+
+1. Meeting prep: 20:00 .
+
+---
+Due By *Wednesday* (2020-11-25)
+
+1. RD:
+1.1. Finish updating JSON so it captures all setuptools fields in order (eg, it should parse the project readme fully): https://gist.github.com/musashix90/697f121e49ab3a3d7c373a35efebe4ca has the old RD's work, which captures more than needed and doesn't use setuptools names but it is fairly complete.
+1.2. Develop schema (with AS) for new JSON: we may need a field for the *UEWSG* division/subdivision so the parser knows where in the queue everything should be.
+2. AS:
+2.1. Fix regressions: """name""" should not include entire title subdivision, UEWSG names should not be put into readme, etc.
+2.2. Help RD develop JSON schema.
+3. PM: Create presentation outline.
+
+---
+Due By *Friday* (2020-11-27)
+
+1. RD: rewrite regex according to new schema.
+2. AS: implement new, simplified algorithm for both inserting readme into queue by UEWSG division/subdivision and parsing out of the queue for setuptools fields.
+3. PM: debug remaining regressions and update docstrings.
 
 +++
 Ground Rules
@@ -78,3 +106,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-20
+**meta_updated**: 2020-11-23
