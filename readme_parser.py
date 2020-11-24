@@ -10,7 +10,7 @@
 # 
 # Created 2020-04-16
 # 
-# Updated 2020-11-20
+# Updated 2020-11-23
 # 
 # +++
 # Description
@@ -152,6 +152,7 @@ Output
 	fields = read_fields(text, FIELD_NAMES)
 	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
 	name = name.casefold().replace(' ', '_') # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—but this is a best-effort solution to deal with the unsemantic mess which is Python packaging and versioning; case is otherwise normalized, as per the UEWSG
+	name = name.replace('\n', '\n# ')
 	for field in range(0, (fields.__len__()-1)):
 		field = fields.pop()
 		print(f'**{field[0]}**: {field[1]}')
@@ -162,7 +163,9 @@ Output
 # 
 # For "setuptools" only
 # 
-# {date.today().strftime('%Y-%m-%d')}
+# ***
+#
+# Created on {date.today().strftime('%Y-%m-%d')}
 # 
 # ***
 # 
@@ -173,6 +176,7 @@ Output
 # 
 # An auto-generated setup file for {name} by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
 # 
+
 # +++
 # Imports
 # 
