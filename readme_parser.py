@@ -10,12 +10,12 @@
 # 
 # Created 2020-04-16
 # 
-# Updated 2020-11-23
+# Updated 2020-11-24
 # 
 # +++
 # Description
 # 
-# The main input, parsing, and output script for Readme Parser; requires properly-formatted JSON file to handle a given version of the [NK] Metadata Format.
+# The main input, parsing, and output script for Readme Parser; requires properly-formatted JSON file (fields.json) to handle a given version of the [NK] Metadata Format.
 # 
 
 # 
@@ -23,9 +23,11 @@
 # Imports
 # 
 from os import sys, path
+import tkinter
+from tkinter import filedialog, messagebox
 import re, json
-from datetime import date
 import Queue.linkedqueue as linkedqueue
+from datetime import date
 # 
 # +++
 # Assignments
@@ -72,19 +74,21 @@ for field_section in fields_json:
 # ---
 # Read Readme
 # 
-def read_readme_uri():
+def input_readme_uri(uri: str = None) -> str:
 	'''
-	Read the location of the readme to be parsed using common names/exts in the CWD; with basic error handling.
+	Input the location, via Tkinter Open dialog, of the readme to be parsed if it is not already passed (eg, from command line); with basic error handling.
+
+	The dialog will default to "readme.txt" in the last-used [by Tkinter] directory, which may or may not exist. The dialog allows searching for any arbitrary file, including switching from the default .txt to any extension, and should return an OS-independent URI (AKA path).
 	'''
 
-	filenames = ('readme', 'README') # Necessary for case-sensitive file systems; weird caps are just SOL
-	extensions = ('.txt', '') # Accept non-UEWSG-recommended lack of file extension
+	if uri is None:
+		root = tkinter.Tk()
+		root.withdraw() # Hide/unmake the root window
+		uri = tkinter.filedialog.askopenfilename(title = 'Open Readme', initialfile = 'readme.txt', filetypes = (('Text file', '*.txt'), ('All files', '*.*'))) # Tkinter handles the case where readme.txt doesn't exist with its own built-in warning
 
 	try:
-		for name in filenames:
-			for ext in extensions:
-				if path.exists(f'{name}{ext}'):
-					return path.join(sys.path[0], f'{name}{ext}') # """path.join()""" handles MS-DOS-style vs POSIX-compliant paths while """sys.path[0]""" gets the correct CWD if running the script via another program (eg, as a "Run" command/shortcut in Notepad++)
+		if uri is not None: # Catch exiting the dialog without selecting a [valid] file
+			return uri
 		else:
 			raise OSError
 	except OSError:
@@ -139,6 +143,30 @@ def create_fields(text, FIELD_NAMES):
 			pass
 	return fields
 # 
+# ---
+# Create Strict Snake Case
+# 
+def create_strict_snake_case(text: str) -> str:
+	'''
+	Convert an arbitrary string into UEWSG-compliant (and RFC 3986 §2.3-compliant) strict snake case.
+
+	This function takes any string and, using the rules set for for filenames in the UEWSG (and based in turn upon RFC 3986 §2.3, which is nearly a subset of "POSIX-portable" as well, not counting the tilde ("~")), converts it into strict snake case by stripping leading and trailing whitespace, lowercasing all letters, replacing spaces with underscores, and then stripping out any remaining non-compliant characters.
+	'''
+
+	NUMBERS = {chr(48 + i) for i in range(10)} # 0–9
+	LETTERS = {chr(97 + i) for i in range(26)} # Lowercase only
+	OTHERS = {'-', '_', '.', '~'} # Also from RFC 3986 §2.3
+	UNRESERVED_CHARACTERS = NUMBERS | LETTERS | OTHERS # From the UEWSG (RFC 3986 §2.3 minus uppercase letters, which aren't part of the UEWSG spec)
+
+	text = text.strip() # Extra whitespace is only permitted in [preformatted] quotes
+	text = text.casefold() # Only lowercase letters are permitted in strict snake case
+	text = text.replace(' ', '_') # Spaces are replaced with underscores
+	for character in text:
+		if character not in UNRESERVED_CHARACTERS:
+			text = text.replace(character, '') # All non-conforming characters are simply deleted
+
+	return text
+# 
 # +++
 # Output
 # 
@@ -151,14 +179,14 @@ Make "setup.py" Easy!
 Output
 ''')
 	try:
-		with open(read_readme_uri(), encoding = 'UTF-8') as readme:
+		with open(input_readme_uri(path.join(sys.path[0], 'readme.txt')), encoding = 'UTF-8') as readme:
 			text = readme.read()
 	except IOError:
 		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
 	fields = create_fields(text, FIELD_NAMES)
 	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
-	name = name.casefold().replace(' ', '_') # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—but this is a best-effort solution to deal with the unsemantic mess which is Python packaging and versioning; case is otherwise normalized, as per the UEWSG
+	name = create_strict_snake_case(name) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	name = name.replace('\n', '\n# ')
 	for field in range(0, (fields.__len__()-1)):
 		field = fields.pop()
