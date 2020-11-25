@@ -1,0 +1,109 @@
+Fields
+
+https://github.com/bizzlebin/team_g/blob/master/team/fields.json
+
+***
+
+By Michael Tanner, et al
+
+***
+
+Created 2020-11-19
+
++++
+Description
+
+This JSON contains both [NK] Metadata Format [generic sub]division field names at the top level and the setuptools field names (https://setuptools.readthedocs.io/en/latest/references/keywords.html) as children, allowing the readme to be parsed as a compliant UEWSG plaintext file and the setup.py field names to be extracted part by part with regex.
+
++++
+Metadata
+
+====
+NKMF-To-Setuptools Field Name Conversion
+
+[**NKMF name**: Setuptools name]
+
+---
+[Header]
+
+~~~~~
+Title
+
+**title**: name
+**version**: version
+**container**: url
+**subtitle**: description
+**uri**: download_url
+**source**: None
+
+~~~~~
+Authorship
+
+**author**: author
+**editor**: None
+**translator**: None
+**generator**: None
+
+~~~~~
+Timestamps
+
+**created**: None
+**updated**: None
+**released**: release_date (deprecated?)
+**deleted**: None
+
+~~~~~
+Usage
+
+**copyright**: license
+**license**: license
+**tags**: None
+**permissions**: None
+
+---
+Dedication
+
+**dedication**: None
+
+---
+Colophon
+
+**colophon**: None
+
+---
+Description
+
+**description**: long_description
+
+===
+Other Notes
+
+• Set long_description_content_type = '''text/plain'''
+• Seed py_modules = ['''{name}''',]
+• Warn user to add any other modules, files manually
+
++++
+Schema
+
+In NKCF-compliant Whitesmiths style.
+
+"""
+{
+"[uewsg_division_name]":
+	{
+	"division_regex": "[until *** or +++]",
+	"[setuptools_field_name]":
+		{
+		"field_regex": "[...]"
+		}
+	}
+}
+"""
+
++++
+Metametadata
+
+**meta_title**: Fields Metadata
+**meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/fields.json_metadata.txt
+**meta_author**: Jeremiah Thomas, et al
+**meta_created**: 2020-11-24
