@@ -1,6 +1,6 @@
 Fields
 
-https://github.com/bizzlebin/team_g/blob/master/team/fields.json
+https://github.com/bizzlebin/team_g/blob/master/fields.json
 
 ***
 
@@ -104,7 +104,7 @@ In NKCF-compliant Whitesmiths style.
 Metametadata
 
 **meta_title**: Fields Metadata
-**meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/fields.json_metadata.txt
+**meta_uri**: https://github.com/bizzlebin/team_g/blob/master/fields.json_metadata.txt
 **meta_author**: Jeremiah Thomas, et al
 **meta_created**: 2020-11-24
 **meta_updated**: 2020-11-25
