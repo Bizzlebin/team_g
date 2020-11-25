@@ -22,17 +22,19 @@
 # +++
 # Imports
 # 
-from os import sys, path
+import os
+import sys
 import tkinter
 from tkinter import filedialog, messagebox
-import re, json
+import re
+import json
 import Queue.linkedqueue as linkedqueue
 from datetime import date
 # 
 # +++
 # Assignments
 # 
-with open(path.join(sys.path[0], 'fields.json'), 'r') as file:
+with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
 	fields_json = json.load(file)
 # ===
 # Constants
@@ -84,19 +86,19 @@ def input_readme_uri(uri: str = None) -> str:
 	if uri is None:
 		root = tkinter.Tk()
 		root.withdraw() # Hide/unmake the root window
-		uri = tkinter.filedialog.askopenfilename(title = 'Open Readme', initialfile = 'readme.txt', filetypes = (('Text file', '*.txt'), ('All files', '*.*'))) # Tkinter handles the case where readme.txt doesn't exist with its own built-in warning
+		uri = filedialog.askopenfilename(title = 'Open Readme', initialfile = 'readme.txt', filetypes = (('Text file', '*.txt'), ('All files', '*.*'))) # Tkinter handles the case where readme.txt doesn't exist with its own built-in warning
 
 	try:
 		if uri is not None: # Catch exiting the dialog without selecting a [valid] file
-			return uri
+			return uri.replace('/', os.sep) # Tkinter bug: it always returns "*nix"-style paths!; this fixes it
 		else:
-			raise OSError
-	except OSError:
-		input('**Error**: Readme Parser found no readme file in the current directory! Press Enter to exit...')
+			raise FileNotFoundError
+	except FileNotFoundError:
+		input('\n***\n\n**Error**: Readme Parser found no readme file in the current directory! Press Enter to exit...')
 		sys.exit() # Automatically creates and handles another exception specifically created for this purpose
 # 
 # ---
-# Read Fields
+# Create Fields
 # 
 def create_fields(text, FIELD_NAMES):
 	'''
@@ -178,12 +180,27 @@ Make "setup.py" Easy!
 +++
 Output
 ''')
+	uri = input_readme_uri(os.path.join(sys.path[0], 'readme.txt')) # ***Warning***: dummy code!!!
+	path = os.path.dirname(uri)  # Python leaves all paths OS-specific, so this is required; same as """uri.rsplit(sep = os.sep, maxsplit = 1)[0]""" and a few other methods
+
+	if os.path.isfile(os.path.join(path, 'setup.py')):
+		try:
+			root = tkinter.Tk()
+			root.withdraw() # Hide/unmake the root window
+			overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
+			if overwrite == False:
+				raise UserWarning
+		except UserWarning:
+			input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
+			sys.exit()
+
 	try:
-		with open(input_readme_uri(path.join(sys.path[0], 'readme.txt')), encoding = 'UTF-8') as readme:
+		with open(uri, encoding = 'UTF-8') as readme:
 			text = readme.read()
 	except IOError:
 		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
+
 	fields = create_fields(text, FIELD_NAMES)
 	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
 	name = create_strict_snake_case(name) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
@@ -193,7 +210,7 @@ Output
 		print(f'**{field[0]}**: {field[1]}')
 		fields.add(field)
 	try:
-		with open(path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
+		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
 			setup.write(f'''# Setup | {name}
 # 
 # For "setuptools" only
