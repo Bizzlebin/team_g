@@ -105,44 +105,32 @@ def create_fields(text, FIELD_NAMES):
 	Create setuptools-compliant fields from the readme using regex; handles blank fields but does not tolerate non-compliance.
 	'''
 
-	fields = linkedqueue.LinkedQueue()
-	start = 0
+	sections = linkedqueue.LinkedQueue()
+	subdivision_names = ['title', 'authorship', 'timestamps', 'usage']
+	divisions = re.split(r'[+]{3}', text)
+	subdivisions = re.split(r'\*{3}', divisions[0])
+	fields = {}
 
-	section_names = ['Title', 'Authorship', 'Timestamps', 'Usage', 'Description']
-	sections = re.split(r'[*+=]{3}', text)
-	for (name, section) in zip(section_names, sections):
-		fields.add([name, section.strip()])
+	for (name, subdivision) in zip(subdivision_names, subdivisions):
+		fields.add([name, subdivision.strip()])
+	for division in divisions:
+		if re.search(r'^Description', division.strip()):
+			sections.add(['description', division.strip()])
 	
-	for field in FIELD_NAMES:
-		subfields = FIELD_NAMES[field][2]
-		try:
-			match = FIELD_NAMES[field][0].search(text, start)
-			if FIELD_NAMES[field][1]:
-				filters = FIELD_NAMES[field][1]
-			else:
-				filters = '' # This not only gets rid of a """TypeError""" iterating on """None""" but doesn't have a negative effect when trying to filter—perhaps zero-length strings don't compare?
-			for filter in filters:
-				if filter in match.group(1)[:len(filter)]:
-					fields.add([field, '']) # Send blank fields; comment out to send only filled
-					break
-			else:
-				start = match.end()
-				if match.group(1) is None:
-					fields.add([field, '']) # Prevent """None""" from being sent
-				else:
-					fields.add([field, match.group(1)])
-				if subfields:
-					for i in range(len(subfields)):
-						if match.group(i + 2) is None:
-							fields.add([subfields[i], '']) # Prevent """None""" from being sent
-						else:
-							fields.add([subfields[i], match.group(i + 2)]) # The first group is already the main field so start at group 2
-		except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-			fields.add([field, '']) # Comment out until """pass""" to send only filled (ie, non-blank) fields
-			if subfields:
-				for i in range(len(subfields)):
-					fields.add([subfields[i], ''])
-			pass
+	while sections not sections.isEmpty():
+		section = sections.pop()
+		for division in FIELD_NAMES:
+			if division == section[0]:
+				for field in division:
+				try:
+					match = field[field_regex].search(section[1], start)
+					If match.group(1) is None:
+						fields.append[field: ''] # Send blank fields; comment out to send only filled
+					else:
+						fields.append[field: match.group(1)]
+				except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
+					fields.add([field, '']) # Comment out until """pass""" to send only filled (ie, non-blank) fields
+				pass
 	return fields
 # 
 # ---

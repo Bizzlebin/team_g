@@ -10,12 +10,13 @@ By Eric Bulson
 
 Created 2020-11-19
 
-+++
+===
 Description
 
-This is the pseudo code for the readme_parser program's original read_fields function.
+This is the pseudo code for the readme_parser program's original and modified read_fields function.
 
-+++
+===
+Original Algorithm
 
 This functions purpose is to use data (field names, RegEx patterns, filters, subfields) from FIELD_NAMES to search the readme file's text and pull the corresponding data values.
 
@@ -52,3 +53,37 @@ function read_fields(Text, FIELD_NAMES):
                 Iterate through subfields:
                     add blank subfield to data structure.
     return data structure.
+
+===
+Modified Algorithm
+
+This functions purpose is to split the readme text into the separate header sections. It then uses data (field names, RegEx patterns, filters, subfields) from FIELD_NAMES to search the section text and pull the corresponding data values. 
+
+    Initialize dictionairy data structure to hold field values.
+    Initialize linked queue data structure to hold header sections pulled from readme text.
+    Create subdivision_names variable and assign list of section names.
+    Create divisions variable and assign list from readme text split using "===" and "+++" delimiters.
+    Create subdivions variable and assign list from divisions[0] split using "***" delmiters.
+
+    Zip the subdivions and subdivision_names lists:
+        Add list of name and text to sections queue.
+    Iterate through the divisions:
+        If the division starts with 'Description':
+            Add list of 'Description' and division text to sections queue.
+
+    While sections queue is not empty:
+        pop first section in queue and assign to section variable.
+        Iterate through divisions in FIELD_NAMES:
+            If division is equal to section name:
+                Iterate through fields in division:
+                    Try:
+                        Search section text using field's RegEx pattern.
+                        If search result value is None:
+                            Add a blank field to dictionairy.
+                        Else:
+                            Add Add field with retrieved value to dictionairy.
+                    Except when an AttributeError occurs from fields that cannot be RegExed:
+                        Add a blank field to data structure.
+    return dictionairy
+
+
