@@ -1,6 +1,6 @@
 Fields
 
-https://github.com/bizzlebin/team_g/blob/master/team/fields.json
+https://github.com/bizzlebin/team_g/blob/master/fields.json
 
 ***
 
@@ -18,7 +18,7 @@ This JSON contains both [NK] Metadata Format [generic sub]division field names a
 +++
 Metadata
 
-====
+===
 NKMF-To-Setuptools Field Name Conversion
 
 [**NKMF name**: Setuptools name]
@@ -82,7 +82,7 @@ Other Notes
 • Seed py_modules = ['''{name}''',]
 • Warn user to add any other modules, files manually
 
-+++
+===
 Schema
 
 In NKCF-compliant Whitesmiths style.
@@ -104,6 +104,7 @@ In NKCF-compliant Whitesmiths style.
 Metametadata
 
 **meta_title**: Fields Metadata
-**meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/fields.json_metadata.txt
+**meta_uri**: https://github.com/bizzlebin/team_g/blob/master/fields.json_metadata.txt
 **meta_author**: Jeremiah Thomas, et al
 **meta_created**: 2020-11-24
+**meta_updated**: 2020-11-25
