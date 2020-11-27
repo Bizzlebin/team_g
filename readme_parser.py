@@ -112,25 +112,25 @@ def create_fields(text, FIELD_NAMES):
 	fields = {}
 
 	for (name, subdivision) in zip(subdivision_names, subdivisions):
-		fields.add([name, subdivision.strip()])
+		sections.add([name, subdivision.strip()])
 	for division in divisions:
 		if re.search(r'^Description', division.strip()):
 			sections.add(['description', division.strip()])
-	
-	while sections not sections.isEmpty():
+
+	while not sections.isEmpty():
 		section = sections.pop()
 		for division in FIELD_NAMES:
 			if division == section[0]:
 				for field in division:
-				try:
-					match = field[field_regex].search(section[1], start)
-					If match.group(1) is None:
-						fields.append[field: ''] # Send blank fields; comment out to send only filled
-					else:
-						fields.append[field: match.group(1)]
-				except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-					fields.add([field, '']) # Comment out until """pass""" to send only filled (ie, non-blank) fields
-				pass
+					try:
+						match = field['regex_pattern'].search(section[1])
+						if match.group(1) is None:
+							fields[field] = '' # Send blank fields; comment out to send only filled
+						else:
+							fields[field] = match.group(1)
+					except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
+						fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
+						pass
 	return fields
 # 
 # ---
@@ -190,13 +190,10 @@ Output
 		sys.exit()
 
 	fields = create_fields(text, FIELD_NAMES)
-	name = fields.peek()[1] # Since name is used several times I decided to create a variable for it to accomadate the queue structure more easily. 2020-11-18 Eric Bulson
-	name = create_strict_snake_case(name) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
+	name = create_strict_snake_case(fields['name']) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	name = name.replace('\n', '\n# ')
-	for field in range(0, (fields.__len__()-1)):
-		field = fields.pop()
-		print(f'**{field[0]}**: {field[1]}')
-		fields.add(field)
+	for field in fields:
+		print(f'**{field}**: {field}')
 	try:
 		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
 			setup.write(f'''# Setup | {name}
@@ -230,8 +227,7 @@ from setuptools import setup
 # 
 setup(''')
 			for field in fields:
-				field = fields.pop()
-				setup.write(f'\n\t{field[0]} = """{field[1]}""",')
+				setup.write(f'\n\t{field} = """{field}""",')
 			setup.write(f'''\n\tlong_description_content_type = """text/plain""",
 \tpy_modules = ["""{name}""",],
 )''')
