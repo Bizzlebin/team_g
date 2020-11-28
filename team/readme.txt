@@ -88,6 +88,21 @@ Due By *Friday* (2020-11-27)
 2. AS: implement new, simplified algorithm for both inserting readme into queue by UEWSG division/subdivision and parsing out of the queue for setuptools fields.
 3. PM: debug remaining regressions and update docstrings.
 
+===
+Week 3 (2020-11-29)
+
+---
+Due By *Sunday* (2020-11-29)
+
+1. Meeting prep: 20:00 .
+
+---
+Due By *Monday* (2020-11-30)
+
+1. RD: finish all regex work ASAP and document the schema in the metadata file.
+2. AS: optimize algorithm: it still needs to be less nested in order to speed up run time.
+3. PM: start on group paper.
+
 +++
 Ground Rules
 
@@ -106,4 +121,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-20
-**meta_updated**: 2020-11-23
+**meta_updated**: 2020-11-27
