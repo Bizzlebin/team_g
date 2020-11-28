@@ -102,7 +102,9 @@ def input_readme_uri(uri: str = None) -> str:
 # 
 def create_fields(text, FIELD_NAMES):
 	'''
-	Create setuptools-compliant fields from the readme using regex; handles blank fields but does not tolerate non-compliance.
+	Create setuptools-compliant fields from the readme using JSON-based regex; handles blank fields but does not tolerate non-compliance.
+
+	All NKMF fields that translate to setuptools fields are captured, with more information in the JSON metadata file. Fields that do not contain data are still sent to the the setup.py file, but as blanks.
 	'''
 
 	sections = linkedqueue.LinkedQueue()
