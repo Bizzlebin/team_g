@@ -121,18 +121,16 @@ def create_fields(text, FIELD_NAMES):
 
 	while not sections.isEmpty():
 		section = sections.pop()
-		for division in FIELD_NAMES:
-			if division == section[0]:
-				for field in division:
-					try:
-						match = field['regex_pattern'].search(section[1])
-						if match.group(1) is None:
-							fields[field] = '' # Send blank fields; comment out to send only filled
-						else:
-							fields[field] = match.group(1)
-					except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-						fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
-						pass
+		for field in FIELD_NAMES[section[0]]:
+			try:
+				match = field['regex_pattern'].search(section[1])
+				if match.group(1) is None:
+					fields[field] = '' # Send blank fields; comment out to send only filled
+				else:
+					fields[field] = match.group(1)
+			except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
+				fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
+				pass
 	return fields
 # 
 # ---
