@@ -103,6 +103,18 @@ Due By *Monday* (2020-11-30)
 2. AS: optimize algorithm: it still needs to be less nested in order to speed up run time.
 3. PM: start on group paper.
 
+---
+Due By *Tuesday* (2020-12-01)
+
+1. Meeting prep: 20:00 .
+
+---
+Due By *Wednesday* (2020-12-02)
+
+1. RD: test regex for edge cases and make any final adjustments/simplifications.
+2. AS: test algorithm for edge cases and make any final adjustments/simplifications.
+3. PM: finish group paper.
+
 +++
 Ground Rules
 
@@ -121,4 +133,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-20
-**meta_updated**: 2020-11-27
+**meta_updated**: 2020-11-30
