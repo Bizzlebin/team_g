@@ -1,0 +1,38 @@
+Fields.json Documentation
+
+https://github.com/bizzlebin/team_g/blob/master/resources/meeting.json_documentation.txt
+
+***
+
+By Alexander Jimenez
+
+***
+
+Created 11/30/2020
+
++++
+
+Basic Format
+
+Each section of the JSON is separated into individual sections called fields. These fields should translate into the fields of a NKMF compliant document (For example: title, authorship, etc.).
+
+Each field contains keys for the keywords in the setuptools. Keywords can be found here: https://setuptools.readthedocs.io/en/latest/references/keywords.html
+
+Each keyword key has keys for the regex expression used to find the appropriate NKMF line. Optionally the keyword key may specify a match, group and flag.
+
+The match indicates which match to use. Python's regex module's findall method will return a list of all pattern matches. The match value can be used to indicate which index to use.
+
+GROUP KEY AND VALUE HAVE BEEN REMOVED.
+The group value is used in regex expressions that utilize capture groups. To specified number inidicates the capture group's index that holds the appropriate sought value for a given key.
+
++++
+Todo
+
+• Authorship author regex may return any value starting with """By""" other instances of """By""" should not appear in the authorship section but it's a known bug.
+
+Changelog
+
+• 11/30/2020 Removed the flags and match fields. They were un-utilized and implemented with future expansion in mind. We're moving in a different direction and these keys were not part of it.
+
+
+
