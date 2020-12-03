@@ -129,18 +129,10 @@ def create_fields(text, FIELD_NAMES):
 		for field in FIELD_NAMES[section_name]:
 			if type(FIELD_NAMES[section_name][field]) is dict:
 				try:
-					#match = FIELD_NAMES[section_name][field]['regex_pattern'].search(text)
 					match = re.findall(FIELD_NAMES[section_name][field]['regex_pattern'], text)
-					print(field)
-					print(match)
-					if match[FIELD_NAMES[section_name][field]['match']] is None:
-						print()
-						fields[field] = '' # Send blank fields; comment out to send only filled
-					else:
-						print(match[FIELD_NAMES[section_name][field]['match']])
-						fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
-				except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-					fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
+					fields[field] = match[FIELD_NAMES[section_name][field]['match']]
+				except IndexError: # Catch totally blank fields that can't be regexed or that match doesn't exist; for filling in later (by function, hand, etc)
+					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
 					pass
 	return fields
 # 

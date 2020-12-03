@@ -1,9 +1,14 @@
 {
 	"field":
 	{
-		"regex": "",
-		"match": 0,
-		"flags": ""
+		"division":
+		{
+			"field_regex": "\\+{3}"
+		},
+		"subdivision":
+		{
+			"field_regex": "\\*{3}"
+		}
 	},
 	"title":
 	{
@@ -19,7 +24,7 @@
 		},
 		"url":
 		{
-			"field_regex": "((.+):[\\/]{0,2}.+$)",
+			"field_regex": ".+:[\/]{0,2}.+$",
 			"match": 0
 		},
 		"description":
@@ -29,7 +34,7 @@
 		},
 		"download_url":
 		{
-			"field_regex": "((.+):[\\/]{0,2}.+$)",
+			"field_regex": ".+:[\/]{0,2}.+$",
 			"match": 1
 		}
 	},

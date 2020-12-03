@@ -1,4 +1,4 @@
-# Setup | 
+# Setup | readme_parser
 # 
 # For "setuptools" Only
 # 
@@ -10,12 +10,12 @@
 # 
 # ***
 # 
-# Created 2020-12-02
+# Created 2020-12-03
 # 
 # +++
 # Description
 # 
-# An auto-generated setup file for  by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
+# An auto-generated setup file for readme_parser by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
 # 
 
 # 
@@ -41,5 +41,5 @@ setup(
 	license = """license""",
 	long_description = """long_description""",
 	long_description_content_type = """text/plain""",
-	py_modules = ["""""",],
+	py_modules = ["""readme_parser""",],
 )
