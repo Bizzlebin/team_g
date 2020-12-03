@@ -54,20 +54,85 @@ with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
 #	'license_file': (re.compile(fields['license_file'], re.M), None, []), # Only a chapter marker (or EOF) can follow the license, according to the NKCF, so no more exhaustive checking is needed
 #	'long_description': (re.compile(fields['long_description'], re.M), None, []), # "long_description_content_type" is also a valid metadata field that clarifies this one but doesn't seem common; the regex tests for UEWSG block markers to catch the end of this section, if multiple paragraphs are used
 #}
-FIELD_NAMES = {}
-
-for field_section in fields_json:
-	FIELD_NAMES[field_section] = {}
-	for field in fields_json[field_section]:
-		if type(fields_json[field_section][field]) is dict:
-			field_regex = fields_json[field_section][field]["field_regex"]
-			if 'match' in fields_json[field_section][field].keys():
-				field_match = fields_json[field_section][field]["match"]
-			else:
-				field_match = 0
-			FIELD_NAMES[field_section][field] = {'regex_pattern': re.compile(field_regex, re.M), 'match': field_match}
-		else:
-			FIELD_NAMES[field_section][field] = fields_json[field_section][field]
+FIELD_NAMES = {
+	'field': 
+	{
+		'division': 
+		{
+			'regex_pattern': re.compile(fields_json['field']['division']['field_regex'], re.M)
+		},
+		'subdivision': 
+		{
+			'regex_pattern': re.compile(fields_json['field']['subdivision']['field_regex'], re.M)
+		}
+	},
+	'title': 
+	{
+		'name': 
+		{
+			'regex_pattern': re.compile(fields_json['title']['name']['field_regex'], re.M),
+			'match': fields_json['title']['name']['match']
+		},
+		'version': 
+		{
+			'regex_pattern': re.compile(fields_json['title']['version']['field_regex'], re.M),
+			'match': fields_json['title']['version']['match']
+		},
+		'url': 
+		{
+			'regex_pattern': re.compile(fields_json['title']['url']['field_regex'], re.M),
+			'match': fields_json['title']['url']['match']
+		},
+		'description': 
+		{
+			'regex_pattern': re.compile(fields_json['title']['description']['field_regex'], re.M),
+			'match': fields_json['title']['description']['match']
+		},
+		'download_url': 
+		{
+			'regex_pattern': re.compile(fields_json['title']['download_url']['field_regex'], re.M),
+			'match': fields_json['title']['download_url']['match']
+		}
+	},
+	'authorship': 
+	{
+		'author':
+		{
+			'regex_pattern': re.compile(fields_json['authorship']['author']['field_regex'], re.M),
+			'match': fields_json['authorship']['author']['match']
+		},
+		'author_email':
+		{
+			'regex_pattern': re.compile(fields_json['authorship']['author_email']['field_regex'], re.M),
+			'match': fields_json['authorship']['author_email']['match']
+		}
+	},
+	'timestamps':
+	{
+	},
+	'description':
+	{
+		'long_description':
+		{
+			'regex_pattern': re.compile(fields_json['description']['long_description']['field_regex'], re.M),
+			'match': fields_json['description']['long_description']['match']
+		},
+		'long_description_content_type': fields_json['description']['long_description_content_type']
+	},
+	'usage':
+	{
+		'copyright':
+		{
+			'regex_pattern': re.compile(fields_json['usage']['copyright']['field_regex'], re.M),
+			'match': fields_json['usage']['copyright']['match']
+		},
+		'license':
+		{
+			'regex_pattern': re.compile(fields_json['usage']['license']['field_regex'], re.M),
+			'match': fields_json['usage']['license']['match']
+		}
+	}
+}
 	
 # 
 # +++
@@ -131,7 +196,7 @@ def create_fields(text, FIELD_NAMES):
 				try:
 					match = re.findall(FIELD_NAMES[section_name][field]['regex_pattern'], text)
 					fields[field] = match[FIELD_NAMES[section_name][field]['match']]
-				except IndexError: # Catch totally blank fields that can't be regexed or that match doesn't exist; for filling in later (by function, hand, etc)
+				except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
 					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
 					pass
 	return fields
@@ -230,7 +295,7 @@ from setuptools import setup
 # 
 setup(''')
 			for field in fields:
-				setup.write(f'\n\t{field} = """{field}""",')
+				setup.write(f'\n\t{field} = """{fields[field]}""",')
 			setup.write(f'''\n\tlong_description_content_type = """text/plain""",
 \tpy_modules = ["""{name}""",],
 )''')

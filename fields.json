@@ -47,27 +47,49 @@
 		},
 		"author_email":
 		{
-			"field_regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+			"field_regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",
+			"match": 1
 		},
 		"maintainer":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"maintainer_email":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		}
 	},
 	"timestamps":
 	{
-
+		"created":
+		{
+			"field_regex": "None",
+			"match": "None"
+		},
+		"updated":
+		{
+			"field_regex": "None",
+			"match": "None"
+		},
+		"released":
+		{
+			"field_regex": "None",
+			"match": "None"
+		},
+		"deleted":
+		{
+			"field_regex": "None",
+			"match": "None"
+		}
 	},
 	"description":
 	{
 		"long_description":
 		{
 			"field_regex": "^(?!Description).+",
-			"flags": "gm"
+			"match": 0
 		},
 		"long_description_content_type": "text/plain"
 	},
@@ -76,35 +98,40 @@
 		"copyright":
 		{
 			"field_regex": "(?:Copyright © )(.+)",
-			"flags": "g"
+			"match": 0
 		},
 		"license":
 		{
 			"field_regex": "^(?!Copyright ©).+",
-			"flags": "gm"
+			"match": 0
 		}
 	},
 	"metadata":
 	{
 		"packages":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"scripts":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"ext_package":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"ext_modules":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"classifiers":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"distclass":
 		{
@@ -112,7 +139,8 @@
 		},
 		"script_name":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"script_args":
 		{
@@ -120,87 +148,108 @@
 		},
 		"options":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"keywords":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"platforms":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"cmdclass":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"package_dir":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"include_package_data":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"exclude_package_data":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"package_data":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"install_requires":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"entry_points":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"extras_require":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"python_requires":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"namespace_packages":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"test_suite":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"test_requires":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"test_loader":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"eager_resources":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"use_2to3":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"convert_2to3_doctests":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"use_2to3_fixers":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		},
 		"project_urls":
 		{
-			"field_regex": "None"
+			"field_regex": "None",
+			"match": "None"
 		}
 	}
 }

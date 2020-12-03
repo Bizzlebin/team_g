@@ -28,18 +28,16 @@ from setuptools import setup
 # Output
 # 
 setup(
-	name = """name""",
-	version = """version""",
-	url = """url""",
-	description = """description""",
-	download_url = """download_url""",
-	author = """author""",
-	author_email = """author_email""",
-	maintainer = """maintainer""",
-	maintainer_email = """maintainer_email""",
-	copyright = """copyright""",
-	license = """license""",
-	long_description = """long_description""",
+	name = """Readme Parser""",
+	version = """0.3.0""",
+	url = """https://github.com/bizzlebin/team_g/""",
+	description = """Make "setup.py" Easy!""",
+	download_url = """""",
+	author = """Jeremiah Thomas, et al""",
+	author_email = """""",
+	copyright = """""",
+	license = """Copyright © Jeremiah Thomas, et al""",
+	long_description = """A basic parser to extract setup.py metadata fields from a NKMF-compliant (and UEWSG-compliant!) UTF-8 readme file.""",
 	long_description_content_type = """text/plain""",
 	py_modules = ["""readme_parser""",],
 )
