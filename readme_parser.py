@@ -36,6 +36,7 @@ from datetime import date
 # 
 with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
 	fields_json = json.load(file)
+
 # ===
 # Constants
 # 
@@ -56,16 +57,18 @@ with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
 FIELD_NAMES = {}
 
 for field_section in fields_json:
-	field_regex = fields_json[field_section]["regex"]
-
-	if fields_json[field_section]["filters"]:
-		field_filters = fields_json[field_section]["filters"]
-	else:
-		field_filters = None
-
-	field_subfields = fields_json[field_section]["subfields"]
-
-	FIELD_NAMES[field_section] = (re.compile(field_regex, re.M), field_filters, field_subfields)
+	FIELD_NAMES[field_section] = {}
+	for field in fields_json[field_section]:
+		if type(fields_json[field_section][field]) is dict:
+			field_regex = fields_json[field_section][field]["field_regex"]
+			if 'match' in fields_json[field_section][field].keys():
+				field_match = fields_json[field_section][field]["match"]
+			else:
+				field_match = 0
+			FIELD_NAMES[field_section][field] = {'regex_pattern': re.compile(field_regex, re.M), 'match': field_match}
+		else:
+			FIELD_NAMES[field_section][field] = fields_json[field_section][field]
+	
 # 
 # +++
 # Functions
@@ -109,8 +112,8 @@ def create_fields(text, FIELD_NAMES):
 
 	sections = linkedqueue.LinkedQueue()
 	subdivision_names = ['title', 'authorship', 'timestamps', 'usage']
-	divisions = re.split(r'[+]{3}', text)
-	subdivisions = re.split(r'\*{3}', divisions[0])
+	divisions = re.split(FIELD_NAMES['field']['division']['regex_pattern'], text)
+	subdivisions = re.split(FIELD_NAMES['field']['subdivision']['regex_pattern'], divisions[0])
 	fields = {}
 
 	for (name, subdivision) in zip(subdivision_names, subdivisions):
@@ -121,16 +124,24 @@ def create_fields(text, FIELD_NAMES):
 
 	while not sections.isEmpty():
 		section = sections.pop()
-		for field in FIELD_NAMES[section[0]]:
-			try:
-				match = field['regex_pattern'].search(section[1])
-				if match.group(1) is None:
-					fields[field] = '' # Send blank fields; comment out to send only filled
-				else:
-					fields[field] = match.group(1)
-			except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
-				fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
-				pass
+		section_name = section[0]
+		text = section[1]
+		for field in FIELD_NAMES[section_name]:
+			if type(FIELD_NAMES[section_name][field]) is dict:
+				try:
+					#match = FIELD_NAMES[section_name][field]['regex_pattern'].search(text)
+					match = re.findall(FIELD_NAMES[section_name][field]['regex_pattern'], text)
+					print(field)
+					print(match)
+					if match[FIELD_NAMES[section_name][field]['match']] is None:
+						print()
+						fields[field] = '' # Send blank fields; comment out to send only filled
+					else:
+						print(match[FIELD_NAMES[section_name][field]['match']])
+						fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
+				except AttributeError: # Catch totally blank fields that can't be regexed; for filling in later (by function, hand, etc)
+					fields[field] = '' # Comment out until """pass""" to send only filled (ie, non-blank) fields
+					pass
 	return fields
 # 
 # ---
@@ -193,7 +204,7 @@ Output
 	name = create_strict_snake_case(fields['name']) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	name = name.replace('\n', '\n# ')
 	for field in fields:
-		print(f'**{field}**: {field}')
+		print(f'**{field}**: {fields[field]}')
 	try:
 		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
 			setup.write(f'''# Setup | {name}
