@@ -115,6 +115,21 @@ Due By *Wednesday* (2020-12-02)
 2. AS: test algorithm for edge cases and make any final adjustments/simplifications.
 3. PM: finish group paper.
 
+---
+Due By *Friday* (2020-12-04)
+
+1. RD: update presentation outline.
+2. AS: update presentation outline.
+3. PM: begin final code walkthrough and acceptance testing.
+
+===
+Week 4 (2020-12-06)
+
+---
+Due By *Sunday* (2020-12-06)
+
+1. Meeting prep: 20:00 (final meeting!).
+
 +++
 Ground Rules
 
@@ -133,4 +148,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-20
-**meta_updated**: 2020-11-30
+**meta_updated**: 2020-12-02
