@@ -52,36 +52,36 @@
 		},
 		"maintainer":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"maintainer_email":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		}
 	},
 	"timestamps":
 	{
 		"created":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"updated":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"released":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"deleted":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		}
 	},
 	"description":
@@ -110,146 +110,146 @@
 	{
 		"packages":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"scripts":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"ext_package":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"ext_modules":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"classifiers":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"distclass":
 		{
-			"field_regex": "None"
+			"field_regex": null
 		},
 		"script_name":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"script_args":
 		{
-			"field_regex": "None"
+			"field_regex": null
 		},
 		"options":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"keywords":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"platforms":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"cmdclass":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"package_dir":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"include_package_data":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"exclude_package_data":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"package_data":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"install_requires":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"entry_points":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"extras_require":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"python_requires":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"namespace_packages":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"test_suite":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"test_requires":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"test_loader":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"eager_resources":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"use_2to3":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"convert_2to3_doctests":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"use_2to3_fixers":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		},
 		"project_urls":
 		{
-			"field_regex": "None",
-			"match": "None"
+			"field_regex": null,
+			"match": null
 		}
 	}
 }
