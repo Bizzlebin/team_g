@@ -26,11 +26,11 @@
 		},
 		"description":
 		{
-			"regex": "(^.+)"
+			"regex": "^$\\n^(?!uri:\\w|\\w{1,6}:\\w)(.*)?$"
 		},
 		"download_url":
 		{
-			"regex": ".+:[\/]{0,2}.+$"
+			"regex": "^$\\n^((uri:\\w|\\w{1,6}):.*?)$"
 		}
 	},
 	"authorship":
