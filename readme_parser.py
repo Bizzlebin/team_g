@@ -85,8 +85,8 @@ def create_fields(text, FIELD_NAMES):
 
 	sections = linkedqueue.LinkedQueue()
 	subdivision_names = ['title', 'authorship', 'timestamps', 'usage']
-	divisions = re.split(re.compile(FIELD_NAMES['field']['division']['field_regex'], re.M), text)
-	subdivisions = re.split(re.compile(FIELD_NAMES['field']['subdivision']['field_regex'], re.M), divisions[0])
+	divisions = re.split(re.compile(FIELD_NAMES['field']['division']['regex'], re.M), text)
+	subdivisions = re.split(re.compile(FIELD_NAMES['field']['subdivision']['regex'], re.M), divisions[0])
 	fields = {}
 
 	for (name, subdivision) in zip(subdivision_names, subdivisions):
@@ -101,12 +101,12 @@ def create_fields(text, FIELD_NAMES):
 		section_name = section[0]
 		text = section[1]
 		for field in FIELD_NAMES[section_name]:
-			if FIELD_NAMES[section_name][field] != 'text/plain' and FIELD_NAMES[section_name][field]['field_regex'] is not None:
+			if FIELD_NAMES[section_name][field] != 'text/plain' and FIELD_NAMES[section_name][field]['regex'] is not None:
 				try:
-					match = re.compile(FIELD_NAMES[section_name][field]['field_regex'], re.M).search(text)
+					match = re.compile(FIELD_NAMES[section_name][field]['regex'], re.M).search(text)
 					# print(field)
 					if match is not None:
-						fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
+						fields[field] = match.group(1)
 						# print(match.group(1))
 				except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
 					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
