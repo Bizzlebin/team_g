@@ -76,41 +76,44 @@ def input_readme_uri(uri: str = None) -> str:
 # ---
 # Create Fields
 # 
-def create_fields(text, FIELD_NAMES):
+def create_fields(TEXT, FIELD_NAMES):
 	'''
 	Create setuptools-compliant fields from the readme using JSON-based regex; handles blank fields but does not tolerate non-compliance.
 
 	All NKMF fields that translate to setuptools fields are captured, with more information in the JSON metadata file. Fields that do not contain data are still sent to the the setup.py file, but as blanks.
 	'''
 
-	sections = linkedqueue.LinkedQueue()
+	nkmf_groups = linkedqueue.LinkedQueue()
 	subdivision_names = ['title', 'authorship', 'timestamps', 'usage']
-	divisions = re.split(re.compile(FIELD_NAMES['field']['division']['regex'], re.M), text)
+	divisions = re.split(re.compile(FIELD_NAMES['field']['division']['regex'], re.M), TEXT)
 	subdivisions = re.split(re.compile(FIELD_NAMES['field']['subdivision']['regex'], re.M), divisions[0])
 	fields = {}
 
 	for (name, subdivision) in zip(subdivision_names, subdivisions):
-		sections.add([name, subdivision.strip()])
+		nkmf_groups.add([name, subdivision.strip()])
 	for division in divisions:
 		if re.search('^Description', division.strip()):
-			sections.add(['description', division.strip()])
+			nkmf_groups.add(['description', division.strip()])
 			break
 
-	while not sections.isEmpty():
-		section = sections.pop()
+	while not nkmf_groups.isEmpty():
+		section = nkmf_groups.pop()
 		section_name = section[0]
 		text = section[1]
 		for field in FIELD_NAMES[section_name]:
-			if FIELD_NAMES[section_name][field] != 'text/plain' and FIELD_NAMES[section_name][field]['regex'] is not None:
-				try:
-					match = re.compile(FIELD_NAMES[section_name][field]['regex'], re.M).search(text)
-					# print(field)
-					if match is not None:
-						fields[field] = match.group(1)
-						# print(match.group(1))
-				except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
-					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
-					pass
+			if type(FIELD_NAMES[section_name][field]) is dict: # Fields with regex subfield
+				if FIELD_NAMES[section_name][field]['regex'] is not None:
+					try:
+						match = re.compile(FIELD_NAMES[section_name][field]['regex'], re.M).search(text)
+						# print(field)
+						if match is not None:
+							fields[field] = match.group(1)
+							# print(match.group(1))
+					except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
+						fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
+						pass
+			else: # Pre-filled fields, like """long_description_content_type"""
+				fields[field] = FIELD_NAMES[section_name][field]
 	return fields
 # 
 # ---
