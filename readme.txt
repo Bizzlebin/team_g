@@ -1,4 +1,4 @@
-Readme Parser 0.3.0
+Readme Parser 0.3.0 | http://example.com
 
 Make "setup.py" Easy!
 
