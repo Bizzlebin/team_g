@@ -3,93 +3,79 @@
 	{
 		"division":
 		{
-			"field_regex": "\\+{3}"
+			"regex": "\\+{3}"
 		},
 		"subdivision":
 		{
-			"field_regex": "\\*{3}"
+			"regex": "\\*{3}"
 		}
 	},
 	"title":
 	{
 		"name":
 		{
-			"field_regex": "(^.+)(?=\\s.+$)",
-			"match": 0
+			"regex": "(^.+)(?=\\s.+$)"
 		},
 		"version":
 		{
-			"field_regex": "(\\w[^\\s]+$)",
-			"match": 0
+			"regex": "(\\w[^\\s]+$)"
 		},
 		"url":
 		{
-			"field_regex": ".+:[\/]{0,2}.+$",
-			"match": 0
+			"regex": ".+:[\/]{0,2}.+$"
 		},
 		"description":
 		{
-			"field_regex": "(^.+)",
-			"match": 1
+			"regex": "(^.+)"
 		},
 		"download_url":
 		{
-			"field_regex": ".+:[\/]{0,2}.+$",
-			"match": 1
+			"regex": ".+:[\/]{0,2}.+$"
 		}
 	},
 	"authorship":
 	{
 		"author":
 		{
-			"field_regex": "(?:By)\\s(.+)",
-			"match": 0
+			"regex": "(?:By)\\s(.+)"
 		},
 		"author_email":
 		{
-			"field_regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",
-			"match": 1
+			"regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
 		},
 		"maintainer":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"maintainer_email":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		}
 	},
 	"timestamps":
 	{
 		"created":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"updated":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"released":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"deleted":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		}
 	},
 	"description":
 	{
 		"long_description":
 		{
-			"field_regex": "^(?!Description).+",
-			"match": 0
+			"regex": "^(?!Description).+"
 		},
 		"long_description_content_type": "text/plain"
 	},
@@ -97,159 +83,130 @@
 	{
 		"copyright":
 		{
-			"field_regex": "(?:Copyright © )(.+)",
-			"match": 0
+			"regex": "(?:Copyright © )(.+)"
 		},
 		"license":
 		{
-			"field_regex": "^(?!Copyright ©).+",
-			"match": 0
+			"regex": "^(?!Copyright ©).+"
 		}
 	},
 	"metadata":
 	{
 		"packages":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"scripts":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"ext_package":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"ext_modules":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"classifiers":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"distclass":
 		{
-			"field_regex": null
+			"regex": null
 		},
 		"script_name":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"script_args":
 		{
-			"field_regex": null
+			"regex": null
 		},
 		"options":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"keywords":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"platforms":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"cmdclass":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"package_dir":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"include_package_data":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"exclude_package_data":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"package_data":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"install_requires":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"entry_points":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"extras_require":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"python_requires":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"namespace_packages":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"test_suite":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"test_requires":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"test_loader":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"eager_resources":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"use_2to3":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"convert_2to3_doctests":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"use_2to3_fixers":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		},
 		"project_urls":
 		{
-			"field_regex": null,
-			"match": null
+			"regex": null
 		}
 	}
 }
