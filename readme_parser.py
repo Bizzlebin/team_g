@@ -34,7 +34,6 @@ from datetime import date
 # +++
 # Assignments
 # 
-# 
 # ===
 # Constants
 # 
@@ -101,14 +100,13 @@ def create_fields(text, FIELD_NAMES):
 		section_name = section[0]
 		text = section[1]
 		for field in FIELD_NAMES[section_name]:
-			if type(FIELD_NAMES[section_name][field]) is dict:
+			if FIELD_NAMES[section_name][field] != 'text/plain' and FIELD_NAMES[section_name][field]['field_regex'] != 'None':
 				try:
-					match = re.findall(FIELD_NAMES[section_name][field]['field_regex'], text)
-					if FIELD_NAMES[section_name][field]['match'] != 'None':
-						fields[field] = match[FIELD_NAMES[section_name][field]['match']]
-					# match = re.compile(FIELD_NAMES[section_name][field]['field_regex']).search(text)
-					# fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
-					# print(match.group(1))
+					match = re.compile(FIELD_NAMES[section_name][field]['field_regex'], re.M).search(text)
+					# print(field)
+					if match is not None:
+						fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
+						# print(match.group(1))
 				except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
 					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
 					pass
@@ -218,34 +216,3 @@ setup(''')
 	except IOError:
 		input('\n***\n\n**Error**: Readme Parser could not create setup.py; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
-# 
-# +++
-# Old NKMF
-# 
-# A brief overview of the header of an *old* NKMF-compliant document, for testing the JSON on an old-style readme early on in the project:
-# 
-# """
-# [Title[ *semantic* version][ | Container/Collection (after *literal* vertical bar/pipe)]]
-# 
-# [Subtitle]
-# 
-# [[Released on ]YYYY[-MM[-DD]]]
-# 
-# [(Download) URL]
-# 
-# ***
-# 
-# [[Ø|[Copyright ]© ][YYYY ]Author(s)]
-# 
-# [Full license]
-# 
-# +++
-# Description
-# 
-# [What, briefly how, and rarely why]
-# 
-# ===
-# Changelog
-# 
-# [Brief version history and highlights by number—exhaustive diffs are for Git! Use numbered or description lists, eg "**Version 0.1.0**:[ (YYYY[-MM[-DD]])] First release. Started adding..."]
-# """
