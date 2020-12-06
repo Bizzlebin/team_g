@@ -10,7 +10,7 @@
 # 
 # Created 2020-04-16
 # 
-# Updated 2020-11-24
+# Updated 2020-12-06
 # 
 # +++
 # Description
@@ -34,106 +34,15 @@ from datetime import date
 # +++
 # Assignments
 # 
-with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
-	fields_json = json.load(file)
-
+# 
 # ===
 # Constants
 # 
 # ---
 # Field Names
 # 
-# FIELD_NAMES = \
-#	{
-#	'name': (re.compile(fields['name'], re.M), None, ['version', 'url']), # First line is "always" the title (unless escaped), optionally followed by the version and then the container/collection, which in this case will be "assumed" to be a URL; thanks to Nick for help on this: https://stackoverflow.com/questions/61262656/how-can-i-match-work-file-titles-with-optional-elements-using-python-3-regex 
-#	'description': (re.compile(fields['description'], re.M), ('Released on', 'http', 'ftp' '***'), []), # Subtitle passed as [short] description; the filters are the beginning of the next [block] fields, preventing an inappropriate match if some fields are left out and these later fields occur earlier than expected
-#	'release_date': (re.compile(fields['release_date'], re.M), ('http', 'ftp', '***'), []), # Not currently supported by "setuptools"
-#	'download_url': (re.compile(fields['download_url'], re.M), ('***'), []),
-#	'license': (re.compile(fields['license'], re.M), None, ['author']), # No need to filter here, given the matching by UEWSG block marker; the author(s) are assumed to be the copyright holders
-#	# 'long_description': (re.compile(r'^\+\+\+$.^Description$.^$.(^.+?($.^$.^.+?$)*?$)(?=.^$.^$.^\+\+\+$|.^$.^$.^===$|.^$.^$.^---$|\Z)', re.M | re.S), None, None), # Not sure why this doesn't work; oh well! Using """re.S""" seems to be quite troublesome
-#	'license_file': (re.compile(fields['license_file'], re.M), None, []), # Only a chapter marker (or EOF) can follow the license, according to the NKCF, so no more exhaustive checking is needed
-#	'long_description': (re.compile(fields['long_description'], re.M), None, []), # "long_description_content_type" is also a valid metadata field that clarifies this one but doesn't seem common; the regex tests for UEWSG block markers to catch the end of this section, if multiple paragraphs are used
-#}
-FIELD_NAMES = {
-	'field': 
-	{
-		'division': 
-		{
-			'regex_pattern': re.compile(fields_json['field']['division']['field_regex'], re.M)
-		},
-		'subdivision': 
-		{
-			'regex_pattern': re.compile(fields_json['field']['subdivision']['field_regex'], re.M)
-		}
-	},
-	'title': 
-	{
-		'name': 
-		{
-			'regex_pattern': re.compile(fields_json['title']['name']['field_regex'], re.M),
-			'match': fields_json['title']['name']['match']
-		},
-		'version': 
-		{
-			'regex_pattern': re.compile(fields_json['title']['version']['field_regex'], re.M),
-			'match': fields_json['title']['version']['match']
-		},
-		'url': 
-		{
-			'regex_pattern': re.compile(fields_json['title']['url']['field_regex'], re.M),
-			'match': fields_json['title']['url']['match']
-		},
-		'description': 
-		{
-			'regex_pattern': re.compile(fields_json['title']['description']['field_regex'], re.M),
-			'match': fields_json['title']['description']['match']
-		},
-		'download_url': 
-		{
-			'regex_pattern': re.compile(fields_json['title']['download_url']['field_regex'], re.M),
-			'match': fields_json['title']['download_url']['match']
-		}
-	},
-	'authorship': 
-	{
-		'author':
-		{
-			'regex_pattern': re.compile(fields_json['authorship']['author']['field_regex'], re.M),
-			'match': fields_json['authorship']['author']['match']
-		},
-		'author_email':
-		{
-			'regex_pattern': re.compile(fields_json['authorship']['author_email']['field_regex'], re.M),
-			'match': fields_json['authorship']['author_email']['match']
-		}
-	},
-	'timestamps':
-	{
-	},
-	'description':
-	{
-		'long_description':
-		{
-			'regex_pattern': re.compile(fields_json['description']['long_description']['field_regex'], re.M),
-			'match': fields_json['description']['long_description']['match']
-		},
-		'long_description_content_type': fields_json['description']['long_description_content_type']
-	},
-	'usage':
-	{
-		'copyright':
-		{
-			'regex_pattern': re.compile(fields_json['usage']['copyright']['field_regex'], re.M),
-			'match': fields_json['usage']['copyright']['match']
-		},
-		'license':
-		{
-			'regex_pattern': re.compile(fields_json['usage']['license']['field_regex'], re.M),
-			'match': fields_json['usage']['license']['match']
-		}
-	}
-}
-	
+with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
+	FIELD_NAMES = json.load(file)	
 # 
 # +++
 # Functions
@@ -142,7 +51,7 @@ FIELD_NAMES = {
 # Definitions
 # 
 # ---
-# Read Readme
+# Input Readme URI
 # 
 def input_readme_uri(uri: str = None) -> str:
 	'''
@@ -177,8 +86,8 @@ def create_fields(text, FIELD_NAMES):
 
 	sections = linkedqueue.LinkedQueue()
 	subdivision_names = ['title', 'authorship', 'timestamps', 'usage']
-	divisions = re.split(FIELD_NAMES['field']['division']['regex_pattern'], text)
-	subdivisions = re.split(FIELD_NAMES['field']['subdivision']['regex_pattern'], divisions[0])
+	divisions = re.split(re.compile(FIELD_NAMES['field']['division']['field_regex'], re.M), text)
+	subdivisions = re.split(re.compile(FIELD_NAMES['field']['subdivision']['field_regex'], re.M), divisions[0])
 	fields = {}
 
 	for (name, subdivision) in zip(subdivision_names, subdivisions):
@@ -194,8 +103,12 @@ def create_fields(text, FIELD_NAMES):
 		for field in FIELD_NAMES[section_name]:
 			if type(FIELD_NAMES[section_name][field]) is dict:
 				try:
-					match = re.findall(FIELD_NAMES[section_name][field]['regex_pattern'], text)
-					fields[field] = match[FIELD_NAMES[section_name][field]['match']]
+					match = re.findall(FIELD_NAMES[section_name][field]['field_regex'], text)
+					if FIELD_NAMES[section_name][field]['match'] != 'None':
+						fields[field] = match[FIELD_NAMES[section_name][field]['match']]
+					# match = re.compile(FIELD_NAMES[section_name][field]['field_regex']).search(text)
+					# fields[field] = match.group(FIELD_NAMES[section_name][field]['match'])
+					# print(match.group(1))
 				except (IndexError): # Catch totally blank fields; for filling in later (by function, hand, etc)
 					fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
 					pass
@@ -239,16 +152,16 @@ Output
 	uri = input_readme_uri(os.path.join(sys.path[0], 'readme.txt')) # ***Warning***: dummy code!!!
 	path = os.path.dirname(uri) # Python leaves all paths OS-specific, so this is required; same as """uri.rsplit(sep = os.sep, maxsplit = 1)[0]""" and a few other methods
 
-	if os.path.isfile(os.path.join(path, 'setup.py')):
-		try:
-			root = tkinter.Tk()
-			root.withdraw() # Hide/unmake the root window
-			overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
-			if overwrite == False:
-				raise UserWarning
-		except UserWarning:
-			input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
-			sys.exit()
+	# if os.path.isfile(os.path.join(path, 'setup.py')):
+		# try:
+			# root = tkinter.Tk()
+			# root.withdraw() # Hide/unmake the root window
+			# overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
+			# if overwrite == False:
+				# raise UserWarning
+		# except UserWarning:
+			# input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
+			# sys.exit()
 
 	try:
 		with open(uri, encoding = 'UTF-8') as readme:
