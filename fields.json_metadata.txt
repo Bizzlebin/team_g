@@ -51,7 +51,7 @@ NKMF-To-Setuptools Field Name Conversion
 
 **created**: None
 **updated**: None
-**released**: release_date (deprecated?)
+**released**: None
 **deleted**: None
 
 ~~~~~
@@ -108,12 +108,7 @@ Each section of the JSON is separated into individual sections called fields. Th
 
 Each field contains keys for the keywords in the setuptools. Keywords can be found here: https://setuptools.readthedocs.io/en/latest/references/keywords.html
 
-Each keyword key has keys for the regex expression used to find the appropriate NKMF line. Optionally the keyword key may specify a match, group and flag.
-
-The match indicates which match to use. Python's regex module's findall method will return a list of all pattern matches. The match value can be used to indicate which index to use.
-
-GROUP KEY AND VALUE HAVE BEEN REMOVED.
-The group value is used in regex expressions that utilize capture groups. To specified number inidicates the capture group's index that holds the appropriate sought value for a given key.
+Each keyword key has keys for the regex expression used to find the appropriate NKMF line.
 
 +++
 Todo
