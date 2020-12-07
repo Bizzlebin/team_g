@@ -10,7 +10,7 @@
 # 
 # Created 2020-04-16
 # 
-# Updated 2020-12-06
+# Updated 2020-12-07
 # 
 # +++
 # Description
@@ -140,6 +140,23 @@ def create_strict_snake_case(text: str) -> str:
 
 	return text
 # 
+# ---
+# Create Data Files
+# 
+def create_data_files(path: str) -> list:
+	'''
+	Create a list of all non-dotfiles in the readme's directory.
+
+	Though """data_files""" as a setuptools field is deprecated, it is currently the simplest, most reliable way to include other files that are not part of init.py-style packages. This function only searches the root directory and will include *everything* that isn't a directory or dotfile.
+	'''
+
+	data_files = []
+	with os.scandir(path) as cwd:
+		for obj in cwd:
+			if obj.is_file() and not obj.name.startswith('.'):
+				data_files.append(obj.name)
+	return data_files
+# 
 # +++
 # Output
 # 
@@ -173,13 +190,13 @@ Output
 		sys.exit()
 
 	fields = create_fields(TEXT, FIELD_NAMES)
-	name = create_strict_snake_case(fields['name']) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
-	name = name.replace('\n', '\n# ')
+	name = fields['name'] # Preserve canonical name for human use
+	fields['name'] = create_strict_snake_case(fields['name']) # Package name in UEWSG-compliant snake_case; setuptools, PyPI, etc will un-Pythonically not honor all underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	for field in fields:
 		print(f'**{field}**: {fields[field]}')
 	try:
 		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
-			setup.write(f'''# Setup | {fields['name']}
+			setup.write(f'''# Setup | {name}
 # 
 # For "setuptools" Only
 # 
@@ -196,7 +213,7 @@ Output
 # +++
 # Description
 # 
-# An auto-generated setup file for {name} by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation.
+# An auto-generated setup file for {name} by Readme Parser. Remember to fill/add any other fields, as needed. For more information, read the Readme Parser readme and/or in-module documentation. For quick build on Windows, run """python setup.py sdist --formats=zip""".
 # 
 
 # 
@@ -212,7 +229,8 @@ setup  \\
 	(''')
 			for field in fields:
 				setup.write(f'\n\t{field} = \'\'\'{fields[field]}\'\'\',')
-			setup.write(f'''\n	)''')
+			setup.write(f'''\n\tdata_files = {create_data_files(path)}
+	)''')
 		print('\n***\n\nSuccessfully created setup.py!')
 		input('\nPress Enter to exit...')
 		sys.exit()
