@@ -10,7 +10,7 @@ By Jeremiah Thomas, et al
 
 Created 2020-11-24
 
-Updated 2020-11-25
+Updated 2020-12-07
 
 +++
 Description
@@ -33,6 +33,12 @@ Presentation
 2.6. The program is modular, with all the parsing driven by regex in a semantic JSON file that is easy to tweak, should the user wish to use a different version of the NK Metadata Format.
 2.7. And to make parsing easier, the program uses a queue: introduced specifically for this group project, the queue takes in the NKMF divisions one by one and then pushed them out for the second round of parsing, directing each NKMF field within a division into the proper setuptools field.
 3. The Demo
+3.1. Readme to be parsed (features, simplicity, etc)
+3.2. Readme Parser code (show queue, algorithm, TKinter, and output)
+3.3. JSON (briefly show the regex abstracted)
+3.4. Conversion (run the program live: show parser output in CMD)
+3.5. Setup.py (show the file is complete and compliant)
+3.6. Install Readme Parser (on Windows, """python setup.py sdist --formats=zip""", then go to new dist folder and run [elevated] """pip install readme_parser-0.3.0.zip""")
 4. The Experience
 4.1. Jeremiah
 4.1.1. Use mock scenarios to run through different usage patterns: catch edge cases, handle unexpected errors, develop better UX. It is very easy to get tunnel vision making features I would like to use but harder to develop—or even imagine—features that a larger number of people need.
@@ -45,4 +51,4 @@ Presentation
 4.3. Alex
 4.3.1. Starting off as the UI dev was daunting but after we lost a team member I was transferred over to Regex Dev. I've used Regex on and off for years now but I never had the need to dive this deep into it. I now have a much stronger understanding of non-caputuring groups and positive lookaheads and what they can do for me.
 4.3.2. Working in a group on a project that wasn't of my own design was a new challenge. There were parts of this program that I just didn't have the time to fully understand and it was a struggle to see the whole picture when I only worked intimately with one part of the project.
-4.3.3. It was also new having my contributions reviewed and getting feedback for reiteration over the design. Working alone you get the priviliege of final say. Working in the group there were times I had to reiterate over sections I thought were done because we needed to streamline something here or make it easier to maintain there.
+4.3.3. It was also new having my contributions reviewed and getting feedback for reiteration over the design. Working alone you get the priviliege of final say. Working in the group there were times I had to reiterate over sections I thought were done because we needed to streamline something here or make it easier to maintain there.s
