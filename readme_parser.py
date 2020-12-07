@@ -168,19 +168,19 @@ Make "setup.py" Easy!
 +++
 Output
 ''')
-	uri = input_readme_uri(os.path.join(sys.path[0], 'readme.txt')) # ***Warning***: dummy code!!!
+	uri = input_readme_uri()
 	path = os.path.dirname(uri) # Python leaves all paths OS-specific, so this is required; same as """uri.rsplit(sep = os.sep, maxsplit = 1)[0]""" and a few other methods
 
-	# if os.path.isfile(os.path.join(path, 'setup.py')):
-		# try:
-			# root = tkinter.Tk()
-			# root.withdraw() # Hide/unmake the root window
-			# overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
-			# if overwrite == False:
-				# raise UserWarning
-		# except UserWarning:
-			# input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
-			# sys.exit()
+	if os.path.isfile(os.path.join(path, 'setup.py')):
+		try:
+			root = tkinter.Tk()
+			root.withdraw() # Hide/unmake the root window
+			overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
+			if overwrite == False:
+				raise UserWarning
+		except UserWarning:
+			input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
+			sys.exit()
 
 	try:
 		with open(uri, encoding = 'UTF-8') as readme:
@@ -190,7 +190,7 @@ Output
 		sys.exit()
 
 	fields = create_fields(TEXT, FIELD_NAMES)
-	name = fields['name'] # Preserve canonical name for human use
+	name = fields['name'] # Preserve canonical "real" name for human use
 	fields['name'] = create_strict_snake_case(fields['name']) # Package name in UEWSG-compliant snake_case; setuptools, PyPI, etc will un-Pythonically not honor all underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	for field in fields:
 		print(f'**{field}**: {fields[field]}')
