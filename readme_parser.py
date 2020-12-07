@@ -40,7 +40,7 @@ from datetime import date
 # ---
 # Field Names
 # 
-with open(os.path.join(sys.path[0], 'fields.json'), 'r') as file:
+with open(os.path.join(sys.path[0], 'fields.json'), 'r', encoding = 'UTF-8') as file:
 	FIELD_NAMES = json.load(file)
 # 
 # +++

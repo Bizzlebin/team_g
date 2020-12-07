@@ -14,23 +14,22 @@ Usage Section
 '''
 def test_copyright():
 	regex = re.compile(JSON_FILE['copyright']['regex'], re.M)
-	test_list = ["Copyright © Jeremiah Thomas, et al",
-				 "\nCopyright © Jeremiah Thomas"
-				 "\n\nSome other text",
-				 "\nCopyright Jeremiah Thomas, Alexander Jimenez, Eric Bulson"
-				 "\n\nSome other text"]
+	test_list = ["Copyright © Jeremiah Thomas, et al"
+"\n\nAll rights reserved. All copyright holders retain full copyright individually and may sublicense the work, up to and including a Ø (CC0) declaration."
+'\n\n"""THE WORK IS PROVIDED "AS IS" AND THE AUTHORS AND OWNERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS WORK INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHORS OR OWNERS BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WORK."""']
 	matches = []
 	for test in test_list:
 		match = regex.match(test)
 		if match is not None:
 			matches.append(match.group(1))
-	test_answers = ["Jeremiah Thomas, et al", "Jeremiah Thomas", "Jeremiah Thomas, Alexander Jimenez, Eric Bulson"]
+	test_answers = ["Jeremiah Thomas, et al"]
 	assert matches == test_answers, "USAGE COPYRIGHT - returns wrong string."
 
 def test_license():
 	regex = re.compile(JSON_FILE['license']['regex'], re.M)
 	test_list = ["Copyright © Jeremiah Thomas, et al"
-"\n\nAll rights reserved. All copyright holders retain full copyright individually and may sublicense the work, up to and including a Ø (CC0) declaration."]
+"\n\nAll rights reserved. All copyright holders retain full copyright individually and may sublicense the work, up to and including a Ø (CC0) declaration."
+'\n\n"""THE WORK IS PROVIDED "AS IS" AND THE AUTHORS AND OWNERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS WORK INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHORS OR OWNERS BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WORK."""']
 	matches = []
 	for test in test_list:
 		match = regex.match(test)
