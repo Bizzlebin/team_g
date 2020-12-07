@@ -97,14 +97,14 @@ def create_fields(TEXT, FIELD_NAMES):
 			break
 
 	while not nkmf_groups.isEmpty():
-		section = nkmf_groups.pop()
-		section_name = section[0]
-		text = section[1]
-		for field in FIELD_NAMES[section_name]:
-			if type(FIELD_NAMES[section_name][field]) is dict: # Fields with regex subfield
-				if FIELD_NAMES[section_name][field]['regex'] is not None:
+		nkmf_group = nkmf_groups.pop()
+		group_field_names = nkmf_group[0]
+		text = nkmf_group[1]
+		for field in FIELD_NAMES[group_field_names]:
+			if type(FIELD_NAMES[group_field_names][field]) is dict: # Fields with regex subfield
+				if FIELD_NAMES[group_field_names][field]['regex'] is not None:
 					try:
-						match = re.compile(FIELD_NAMES[section_name][field]['regex'], re.M).search(text)
+						match = re.compile(FIELD_NAMES[group_field_names][field]['regex'], re.M).search(text)
 						# print(field)
 						if match is not None:
 							fields[field] = match.group(1)
@@ -113,7 +113,7 @@ def create_fields(TEXT, FIELD_NAMES):
 						fields[field] = '' # Send blank fields; comment out until """pass""" to send only filled (ie, non-blank) fields
 						pass
 			else: # Pre-filled fields, like """long_description_content_type"""
-				fields[field] = FIELD_NAMES[section_name][field]
+				fields[field] = FIELD_NAMES[group_field_names][field]
 	return fields
 # 
 # ---
@@ -167,19 +167,19 @@ Output
 
 	try:
 		with open(uri, encoding = 'UTF-8') as readme:
-			text = readme.read()
+			TEXT = readme.read()
 	except IOError:
 		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
 		sys.exit()
 
-	fields = create_fields(text, FIELD_NAMES)
+	fields = create_fields(TEXT, FIELD_NAMES)
 	name = create_strict_snake_case(fields['name']) # Setuptools, PyPI, etc will un-Pythonically not honor underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	name = name.replace('\n', '\n# ')
 	for field in fields:
 		print(f'**{field}**: {fields[field]}')
 	try:
 		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
-			setup.write(f'''# Setup | {name}
+			setup.write(f'''# Setup | {fields['name']}
 # 
 # For "setuptools" Only
 # 
@@ -212,9 +212,7 @@ setup  \\
 	(''')
 			for field in fields:
 				setup.write(f'\n\t{field} = \'\'\'{fields[field]}\'\'\',')
-			setup.write(f'''\n\tlong_description_content_type = \'\'\'text/plain\'\'\',
-\tpy_modules = [\'\'\'{name}\'\'\',],
-	)''')
+			setup.write(f'''\n	)''')
 		print('\n***\n\nSuccessfully created setup.py!')
 		input('\nPress Enter to exit...')
 		sys.exit()
