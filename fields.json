@@ -14,34 +14,34 @@
 	{
 		"name":
 		{
-			"regex": "\\A(.+?) ?(?:(?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(?:.+)?$"
+			"regex": "\\A(?:\\s)*(.+?) ?(?:(?:\\d+\\.)*\\d*)?(?= \\||$)(?: \\| )?(?:.+)?$"
 		},
 		"version":
 		{
-			"regex": "\\A.+? ?((?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(?:.+)?$"
+			"regex": "\\A.+? ?((?:\\d+\\.)*\\d*)?(?= \\||$)(?: \\| )?(?:.+)?$"
 		},
 		"url":
 		{
-			"regex": "\\A.+? ?(?:(?:\\d+\\.)*\\d)?(?= \\||$)(?: \\| )?(.+)?$"
+			"regex": "\\A\\n*.+? ?(?:(?:\\d+\\.)*\\d)?(?=\\s+\\||$)(?:\\s+\\|\\s+)?(.+)?$"
 		},
 		"description":
 		{
-			"regex": "^$\\n^(?!uri:\\w|\\w{1,6}:\\w)(.*)$"
+			"regex": "^$[\\r\\n]^\\s*(?!uri:\\w|\\w{1,6}:\\w)(.*)$"
 		},
 		"download_url":
 		{
-			"regex": "^$\\n^((uri:\\w|\\w{1,6}):.*)$"
+			"regex": "^$[\\r\\n]^\\s*((uri:\\w|\\w{1,6}):.*)$"
 		}
 	},
 	"authorship":
 	{
 		"author":
 		{
-			"regex": "(?:By)\\s(.+)"
+			"regex": "^\\s*(?:By)(?:\\s)*(.+?)\\s?(?= \\||$)"
 		},
 		"author_email":
 		{
-			"regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+			"regex": "(?:^\\s*By\\s*.+?\\s?(?= \\||$))^\\s*([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+)\\s*$"
 		},
 		"maintainer":
 		{
@@ -75,7 +75,7 @@
 	{
 		"long_description":
 		{
-			"regex": "^(?!Description).+"
+			"regex": "^(?:Description\\n\\n)(.+)"
 		},
 		"long_description_content_type": "text/plain"
 	},
@@ -83,11 +83,11 @@
 	{
 		"copyright":
 		{
-			"regex": "(?:Copyright © )(.+)"
+			"regex": "^(?: ?Copyright ©? ?)(.+)"
 		},
 		"license":
 		{
-			"regex": "^(?!Copyright ©).+"
+			"regex": "^(?: ?Copyright ©? ?.+)\n\n(.+)"
 		}
 	},
 	"metadata":
