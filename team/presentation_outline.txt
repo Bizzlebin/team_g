@@ -43,6 +43,6 @@ Presentation
 4.2.2. This project helped me to consider more the types of data structures and when one is more useful compared to another. For example we opted to use the queue structure for holding the divided readme text since it is data that is no longer needed once used and a queue provided a quicker method to trash the data after it's use.
 4.2.3. Working to review my code for ways to continue simplifying it. Also, the importance of sometimes getting an outside perspective to help see the code in a different way.
 4.3. Alex
-4.3.1.
-4.3.2.
-4.3.3.
+4.3.1. Starting off as the UI dev was daunting but after we lost a team member I was transferred over to Regex Dev. I've used Regex on and off for years now but I never had the need to dive this deep into it. I now have a much stronger understanding of non-caputuring groups and positive lookaheads and what they can do for me.
+4.3.2. Working in a group on a project that wasn't of my own design was a new challenge. There were parts of this program that I just didn't have the time to fully understand and it was a struggle to see the whole picture when I only worked intimately with one part of the project.
+4.3.3. It was also new having my contributions reviewed and getting feedback for reiteration over the design. Working alone you get the priviliege of final say. Working in the group there were times I had to reiterate over sections I thought were done because we needed to streamline something here or make it easier to maintain there.

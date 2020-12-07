@@ -83,11 +83,11 @@
 	{
 		"copyright":
 		{
-			"regex": "^(?: ?Copyright ©? ?)(.+)"
+			"regex": "^(?:\\n*Copyright © )(.+)"
 		},
 		"license":
 		{
-			"regex": "^(?: ?Copyright ©? ?.+)\n\n(.+)"
+			"regex": "^(?:\\n*)(?: ?Copyright ©? ?.+\n\n)(.+)"
 		}
 	},
 	"metadata":
