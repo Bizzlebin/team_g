@@ -130,6 +130,20 @@ Due By *Sunday* (2020-12-06)
 
 1. Meeting prep: 20:00 (final meeting!).
 
+---
+Due By *Monday* (2020-12-07)
+
+1. Presentation prep: 20:00 (Teams).
+
+---
+Due By *Wednesday* (2020-12-09)
+
+1. Peer assessments.
+2. PM:
+2.1. Turn in project.
+2.2. Final readme commit.
+2.3. Archive repo.
+
 +++
 Ground Rules
 
@@ -148,4 +162,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/team/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-20
-**meta_updated**: 2020-12-02
+**meta_updated**: 2020-12-06
