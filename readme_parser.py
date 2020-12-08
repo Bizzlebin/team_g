@@ -220,7 +220,7 @@ Output
 # +++
 # Imports
 # 
-from setuptools import setup
+from setuptools import setup, find_packages
 # 
 # +++
 # Output
@@ -229,7 +229,8 @@ setup  \\
 	(''')
 			for field in fields:
 				setup.write(f'\n\t{field} = \'\'\'{fields[field]}\'\'\',')
-			setup.write(f'''\n\tdata_files = {create_data_files(path)}
+			setup.write(f'''\n\tpackages = find_packages(),
+	data_files = {create_data_files(path)}
 	)''')
 		print('\n***\n\nSuccessfully created setup.py!')
 		input('\nPress Enter to exit...')
