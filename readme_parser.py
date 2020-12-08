@@ -63,9 +63,10 @@ def input_readme_uri(uri: str = None) -> str:
 		root = tkinter.Tk()
 		root.withdraw() # Hide/unmake the root window
 		uri = filedialog.askopenfilename(title = 'Open Readme', initialfile = 'readme.txt', filetypes = (('Text file', '*.txt'), ('All files', '*.*'))) # Tkinter handles the case where readme.txt doesn't exist with its own built-in warning
+		root.destroy() # Return focus to Python console/CMD/etc
 
 	try:
-		if uri is not None: # Catch exiting the dialog without selecting a [valid] file
+		if uri != '': # Catch exiting the dialog without selecting a [valid] file
 			return uri.replace('/', os.sep) # Tkinter bug: it always returns "*nix"-style paths!; this fixes it
 		else:
 			raise FileNotFoundError
@@ -176,6 +177,7 @@ Output
 			root = tkinter.Tk()
 			root.withdraw() # Hide/unmake the root window
 			overwrite = messagebox.askokcancel('Warning!', 'A setup.py file already exists in the readme\'s directory; overwrite the current setup.py file?')
+			root.destroy()
 			if overwrite == False:
 				raise UserWarning
 		except UserWarning:
