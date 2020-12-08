@@ -71,7 +71,7 @@ def input_readme_uri(uri: str = None) -> str:
 		else:
 			raise FileNotFoundError
 	except FileNotFoundError:
-		input('\n***\n\n**Error**: Readme Parser found no readme file in the current directory! Press Enter to exit...')
+		input('\n***\n\n**Error**: Readme Parser found no readme file in the current directory! Input Enter to exit...')
 		sys.exit() # Automatically creates and handles another exception specifically created for this purpose
 # 
 # ---
@@ -81,7 +81,10 @@ def create_fields(TEXT, FIELD_NAMES):
 	'''
 	Create setuptools-compliant fields from the readme using JSON-based regex; handles blank fields but does not tolerate non-compliance.
 
-	All NKMF fields that translate to setuptools fields are captured, with more information in the JSON metadata file. Fields that do not contain data are still sent to the the setup.py file, but as blanks.
+	All NKMF fields that translate to setuptools fields are captured, with more information about this process in the JSON metadata file. Fields that do not contain data are still sent to the the setup.py file, but as blanks.
+	'''
+	'''
+	In the current implementation, the JSON does not describe which NKMF fields are in a subdivision of the header vs a regular, level-based division (eg, chapter ("+++")). Thus, the algorithm is a little more complex that it needs to be and it doesn't offer JSON "plug and play" functionality with anything other than the more recent NKMF versions that subdivide the header into 4 generic subdivisions.
 	'''
 
 	nkmf_groups = linkedqueue.LinkedQueue()
@@ -115,6 +118,7 @@ def create_fields(TEXT, FIELD_NAMES):
 						pass
 			else: # Pre-filled fields, like """long_description_content_type"""
 				fields[field] = FIELD_NAMES[group_field_names][field]
+
 	return fields
 # 
 # ---
@@ -148,14 +152,16 @@ def create_data_files(path: str) -> list:
 	'''
 	Create a list of all non-dotfiles in the readme's directory.
 
-	Though """data_files""" as a setuptools field is deprecated, it is currently the simplest, most reliable way to include other files that are not part of init.py-style packages. This function only searches the root directory and will include *everything* that isn't a directory or dotfile.
+	Though """data_files""" as a setuptools field is deprecated, it is currently the simplest, most reliable way to include other files that are not part of __init__.py-style packages. This function only searches the root directory and will include *everything* that isn't a directory or dotfile.
 	'''
 
 	data_files = []
+
 	with os.scandir(path) as cwd:
 		for obj in cwd:
 			if obj.is_file() and not obj.name.startswith('.'):
 				data_files.append(obj.name)
+
 	return data_files
 # 
 # +++
@@ -181,14 +187,14 @@ Output
 			if overwrite == False:
 				raise UserWarning
 		except UserWarning:
-			input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Press Enter to exit...')
+			input('\n***\n\n**Warning**: Readme Parser is exiting to protect the current setup.py file in the readme\'s directory! Input Enter to exit...')
 			sys.exit()
 
 	try:
 		with open(uri, encoding = 'UTF-8') as readme:
 			TEXT = readme.read()
 	except IOError:
-		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Press Enter to exit...')
+		input('\n***\n\n**Error**: Readme Parser could not open the readme file; please check your file and folder permissions! Input Enter to exit...')
 		sys.exit()
 
 	fields = create_fields(TEXT, FIELD_NAMES)
@@ -231,12 +237,13 @@ setup  \\
 	(''')
 			for field in fields:
 				setup.write(f'\n\t{field} = \'\'\'{fields[field]}\'\'\',')
-			setup.write(f'''\n\tpackages = find_packages(),
+			setup.write(f'''
+	packages = find_packages(),
 	data_files = {create_data_files(path)}
 	)''')
 		print('\n***\n\nSuccessfully created setup.py!')
-		input('\nPress Enter to exit...')
+		input('\nInput Enter to exit...')
 		sys.exit()
 	except IOError:
-		input('\n***\n\n**Error**: Readme Parser could not create setup.py; please check your file and folder permissions! Press Enter to exit...')
+		input('\n***\n\n**Error**: Readme Parser could not create setup.py; please check file and folder permissions! Input Enter to exit...')
 		sys.exit()
