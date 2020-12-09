@@ -10,7 +10,7 @@ By Jeremiah Thomas, Eric Bulson, Alexander Jimenez
 
 Created 2020-11-30
 
-Updated 2020-12-01
+Updated 2020-12-09
 
 +++
 
@@ -18,7 +18,7 @@ Readme Parser, subtitled with the tagline "Make 'setup.py' Easy!", is a basic pa
 
 Before (readme.txt) | After (setup.py)
 
-The immediate goal of Readme Parser is to create setup.py files with as little work and extra overhead as possible: by automating the process, software developers can more quickly package and release their code for others to use either locally, with PIP, or on another Python-compatible package manager. By eliminating one of the more error-prone frustrating parts of Python development, the world of coding is therefore opened up to more people than ever and becomes more accessible—and more accessible even for veteran developers.
+The immediate goal of Readme Parser is to create setup.py files with as little work and extra overhead as possible: by automating the process, software developers can more quickly package and release their code for others to use either locally, with PIP, or on another Python-compatible package manager. By eliminating one of the more error-prone and frustrating parts of Python development, the world of coding is therefore opened up to more people than ever and becomes more accessible—and more accessible even for veteran developers.
 
 The larger goal of the program is to promote sustainable documentation practices more generally, including the New Kidron Metadata Format and Uniform English Writing Style Guide. With programmers under assault by more and more superfluous frameworks and markup regimes (eg, Markdown), Readme Parser is designed to help restore one of the original promises of digital documentation: single source of truth. With the parser and the associated standards, it is no longer necessary to duplicate information in either content or format: one single text file in plain language is enough to programmatically produce everything from setup files (Readme Parser) to fully-compliant HTML5 webpages (UEWSG Parser, a sister project) without any user intervention. In a way, the parser brings automation to language itself.
 
