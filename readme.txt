@@ -12,7 +12,9 @@ By Jeremiah Thomas, et al
 
 Created 2020-04-16
 
-Updated 2020-12-07
+Updated 2020-12-09
+
+Released 2020-12-09
 
 ***
 
@@ -35,7 +37,7 @@ A basic parser to extract setup.py metadata fields from a NKMF-compliant (and UE
 ===
 Constraints
 
-Fields must not be [preformatted] blockquotes—they are difficult to parse (at present). Assumes 1 script with same "snake_case" name as """name""". If using the legacy distutils.core, fields must be "short strings", under 200 characters, to be compatible with the older utility (setuptools does not appear to have this restriction). The """name""", """version""", and """url""" fields are required for distutils.
+Fields other than """long_description""" must not be [preformatted] blockquotes—they are difficult to parse (at present). Assumes main script has same "snake_case" name as """name""". If using the legacy distutils.core, fields other than """long_description""" must be "short strings", under 200 characters, to be compatible with the older utility (read https://docs.python.org/3/distutils/setupscript.html#additional-meta-data; setuptools does not appear to have this restriction). The """name""", """version""", and """url""" fields are required for distutils.
 
 Some fields will need to be manually added. There is no consistent way to add an e-mail address since it is not part of the NKMF at present. Similarly, other fields are not part of the NKMF and/or are just not very useful for the majority of projects; make sure to check project requirements. Finally, note the below fields, which can be generated programmatically (eg, using the vermin library) but are outside the scope of this parser:
 
@@ -50,7 +52,7 @@ The JSON file must contain all applicable fields in a dict with their setuptools
 +++
 Changelog
 
-**0.3.0**: (2020-12) Converted to a group project (WTCC CSC 130-001), moved regex to JSON, simplified parsing algorithm, added Tkinter dialogs, updated to the latest NKMF, and created parse queue
+**0.3.0**: (2020-12-09) Converted to a group project (WTCC CSC 130-001), moved regex to JSON, simplified parsing algorithm, added Tkinter dialogs, updated to the latest NKMF, and created parse queue
 **0.2.5**: (2020-04-27) Finished lots of iterations trying to figure out eggs, PIP, and grammar issues (eg, capitalization and underscores vs hyphens)—an alternative to PIP may be necessary
 **0.2.4**: (2020-04-25) More testing/fiddling
 **0.2.3**: (2020-04-25) More testing/fiddling
@@ -71,4 +73,4 @@ Metametadata
 **meta_uri**: https://github.com/bizzlebin/team_g/blob/master/readme.txt
 **meta_author**: Jeremiah Thomas
 **meta_created**: 2020-11-16
-**meta_updated**: 2020-12-07
+**meta_updated**: 2020-12-09
