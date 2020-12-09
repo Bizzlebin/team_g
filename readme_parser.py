@@ -10,7 +10,7 @@
 # 
 # Created 2020-04-16
 # 
-# Updated 2020-12-07
+# Updated 2020-12-08
 # 
 # +++
 # Description
@@ -175,6 +175,7 @@ Make "setup.py" Easy!
 +++
 Output
 ''')
+
 	uri = input_readme_uri()
 	path = os.path.dirname(uri) # Python leaves all paths OS-specific, so this is required; same as """uri.rsplit(sep = os.sep, maxsplit = 1)[0]""" and a few other methods
 
@@ -202,8 +203,9 @@ Output
 	fields['name'] = create_strict_snake_case(fields['name']) # Package name in UEWSG-compliant snake_case; setuptools, PyPI, etc will un-Pythonically not honor all underscores—they get replaced with hyphens in *some* places—in the unsemantic mess which is Python packaging and versioning
 	for field in fields:
 		print(f'**{field}**: {fields[field]}')
+
 	try:
-		with open(os.path.join(sys.path[0], 'setup.py'), 'w', encoding = 'UTF-8') as setup:
+		with open(os.path.join(path, 'setup.py'), 'w', encoding = 'UTF-8') as setup:
 			setup.write(f'''# Setup | {name}
 # 
 # For "setuptools" Only
